@@ -25,4 +25,4 @@ public class HamsterPartyGame extends SimpleHamsterGame {
 	 */
 	protected void run() {}
 }
-// Party
+// Party!
