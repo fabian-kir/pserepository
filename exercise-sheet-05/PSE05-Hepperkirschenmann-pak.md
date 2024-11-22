@@ -54,17 +54,105 @@ In E3
     !(ham == null || ham.grainAvailable()) && ( (ham == null || ham.frontIsClear()) 
 ```
 
-# Aufgabe 3)
+## Aufgabe 3
 
-## a)
+### a)
 
-i. Invarianten:
-- Das Objekt ist initialisiert
-- Der Grain Count ist nicht kleiner als (- maximumOverdraft)
+- `grainNumber` sollte niemals kleiner sein als `-(maximumOverdraft)`
+- `maximumOverdraft` muss stets eine Ganzzahl ≥ 0 sein
+- `hamster` muss ein initialisierter Hamster auf einem `territory`  sein
 
+---
 
+### b)
 
+- Man sollte lieber klar unterscheiden zwischen einem SharedBankAccount und einem BankAccount. Für Benutzer des Interfaces könnte es sonst schwer zu verstehen sein, was der Unterschied zwischen beiden sein soll, wenn doch in beiden Fällen auch nur ein Hamster Inhaber des Bankkontos sein könnte.
+- Es ist vom Stil falsch und kann leicht zu Fehlern führen, wenn man null-Referenzen als Basiswerte verwendet. Besser wäre es hier Optionals einzuführen. Am Besten wäre aber natürlich eine zwangsläufige Unterscheidung zwischen einem BankAccount und SharedBankAccount.
+- Ein Benutzer des Interfaces könnte Versuchen den secondHamster direkt anzusteuern, was zu einer NullPointerException führen würde.
 
+---
+
+### c)
+
+Anmerkung: `depositGrains`  sollte auch als einen Parameter vom Typ `Hamster` aufzählen, sodass zunächst überprüft werden kann, ob der Hamster auch genügend Grains bei sich hat und ob auch der richtige Hamster gerade versucht grains aufzubuchen. (Defensiv)
+
+Vorbedingungen `@requires`
+
+- Der Aufrufer besitzt mindestens so viele Grains wie eingezahlt werden sollen.
+- `grains` > 0
+- Der aufrufenden Hamster ist der Kontoführende Hamster `this.hamster` .
+
+Nachbedingungen `@ensures`
+
+- Der neue Wert von grainNumber wird um `grains` erhöht.
+
+---
+
+### d)
+
+Vorbedingungen `@requires`
+
+- `grains <= grainNumber + maximumOverdraft`  Es werden nicht mehr grains abgebucht als es grainNumber und der entsprechende maximumOverdraft zulassen = das Konto wird nicht weiter als zulässig überzogen.
+- `grains`  > 0
+- Der aufrufende Hamster ist der Kontoführende Hamster `this.hamster`
+
+Nachbedingungen `@ensures`
+
+- die neue grainNumber wurde um grains verringert.
+
+---
+
+### e)
+
+null:
+
+Eine Entität speichert eine Referenz zu Daten im Heap, also die Position an der die entsprechenden Daten im Heap gefunden werden können (ähnlich wie ein Index). Wenn eine Entität erstellt wird, ohne dass eine Allokierung durchgeführt wird `Hamster hamster;`  dann ensteht eine Entität die einen sog. NullPointer hält, also der eine Referenz fehlt.
+
+this:
+
+Beim Aufruf einer Methode werden neben allen Arugementen noch eine weitere Information an die Methode überliefert, nämlich welches genaue Objekt die Methode verwendet. Eine Referenz zu diesem Objekt hält `this` . Durch `this` können also Methoden, anders als Funktionen, die Daten des Objekts direkt abrufen oder modifizieren oder andere Methoden des Objekts Aufrufen.
+
+---
+
+### f)
+
+1. 1 firstAccount wird initialisiert und erhält 5 Körner.
+2. 3 thirdAccount wird initialisiert und herählt 3 Körner.
+3. 6 firstAccount werden 30 weitere Körner hinzugefügt.
+4. 7 der Entität firstAccount wird die Referenz zu den Daten von thirdAccount zugewiesen. → firstAccount zeigt auf die selben Daten wie thirdAccount
+5. 9 firstAccount.getGrainNumber(); gibt 3 zurück
+
+—
+
+1. 2 secondAccount wird initialisiert und erhält 25 Körner
+2. 5 der Entität secondAccount wird die Referenz zu den Daten von firstAccount zugewiesen. → secondAccount zeigt auf die selben Daten wie firstAccount
+3. 6  firstAccount werden 30 weitere Körner hinzugefügt. Da secondAccount eine Referenz auf die selben Daten hält…
+4. 10gibt secondAccount.getGrainNumber(); nun 35 zurück
+
+—
+
+1. 3 thirdAccount wird initialisert und erhält 3 Körner
+2. 11thirdAccount.getGrainNumber(); gibt 3 zurück
+
+---
+
+### g)
+
+```java
+BankAccount paulesAccount = new Hamster(...);
+BankAccount bielefeldsAccount;
+
+bielefeldsAccount.transferGrainsTo(paulesAccount, 10);
+// NullPointerException da bielefeldsAcocunt nie konstruiert/allokiert wurde.
+```
+
+---
+
+### f)
+
+statische Codeanalysen können durch Controlflow analyse eine NullPointerException immer dann finden, wenn diese nicht von außen ausgelöst werden können, also durch beispielsweise externe API Abfragen, Requests wie Beispielsweise HTTPS requests oder User Input.
+
+---
 
 
 
