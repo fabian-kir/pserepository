@@ -151,9 +151,3 @@ bielefeldsAccount.transferGrainsTo(paulesAccount, 10);
 ### f)
 
 statische Codeanalysen können durch Controlflow analyse eine NullPointerException immer dann finden, wenn diese nicht von außen ausgelöst werden können, also durch beispielsweise externe API Abfragen, Requests wie Beispielsweise HTTPS requests oder User Input.
-
----
-
-
-
-https://www.jetbrains.com/remote-development/gateway/
