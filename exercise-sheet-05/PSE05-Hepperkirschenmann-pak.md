@@ -59,7 +59,7 @@ In E3
 ### a)
 
 - `grainNumber` sollte niemals kleiner sein als `-(maximumOverdraft)`
-- `maximumOverdraft` muss stets eine Ganzzahl ≥ 0 sein
+- `maximumOverdraft` muss stets eine Ganzzahl <= 0 sein
 - `hamster` muss ein initialisierter Hamster auf einem `territory`  sein
 
 ---
