@@ -31,5 +31,7 @@ public class AmazingPauleHamsterGame extends SimpleHamsterGame {
 
 	void passTheMaze() {
 		// TODO solve the maze here
+		this.paule
+				.move();
 	}
 }
