@@ -92,4 +92,19 @@ Feld liegen.
 
 
 ## b)
-**i**;
+**i**:
+0. Es wird eine Funktion definiert 'turnRight' durch die Paule sich 3x nach links dreht.
+0. Es wird eine Funktion definiert 'walkCornerAndPutGrains' mit dem Parameter pathLength
+    2x:
+        Paule läuft eine gerade Linie gemäß pathLength, legt auf jedem Tile ein Grain ab.
+        Paule dreht sich nach rechts.
+
+1. Paule läuft nach Norden bis zur Wand, legt auf jedem Tile ein Grain ab und
+        _zählt die Anzahl der Tiles, über die er läuft, um die pathLength zu ermitteln_
+
+2. solange die pathLength > 0 bleibt, passiert folgendes (Abweisschleife)
+    - walkCornerAndPutGrains(pathLength); wird ausgeführt.
+    - pathLength -= 2;
+3. Paule legt auf dem Endfeld ein letztes Grain ab, SCHREIT `LETS GOOOOOOOOO` und ist fertig
+
+> Korrekturanmerkung: Es wäre natürlich besser, turnRight als eine Hamster-Methode zu definieren, so wie es auch bei turnLeft ist. 
