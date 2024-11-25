@@ -1,7 +1,8 @@
 # Aufgabenblatt 06
-Mika Hepper - - 
-Fabian Kirschenmann - st193208@stud.uni-stuttgart.de - 3787773
+Mika Hepper - st193543@stud.uni-stuttgart.de - 3787375
 
+Fabian Kirschenmann - st193208@stud.uni-stuttgart.de - 3787773
+# Aufgabe 1
 ## a)
 **i**: 
 > Paule hat alle Felder, über die er gelaufen ist, außer das direkt vor der Wand, leer gefuttert.
@@ -64,3 +65,31 @@ Feld liegen.
 
 ---
 
+# Aufgabe 2
+## a)
+**i**:
+0. Es wird eine Funktion definiert 'walkDiagonalAndPutGrain':
+    0.1. Eine Durchlaufschleife mit anschließender Prüfung ob Paule vor einer Wand steht
+   - Paule dreht sich zu seiner Rechten (3x turnLeft();)
+   - Paule macht einen Schritt
+   - Paule dreht sich zu seiner Linken (turnLeft();)
+   - Paule macht einen Schritt
+   - Paule legt ein Korn ab
+
+0. Es wird eine Funktion definiert 'turnToDirection' mit dem Parameter 'direction' vom Typ Direction
+    0.2 Eine Abweisschleife um Paule in vorgegeben Richtung (Direction direction) zu drehen
+   - Paule dreht sich zu seiner Linken (turnLeft();)
+
+1. Paule legt ein Korn auf seinem Startfeld ab
+2. Die Funktion `turnToDirection` mit dem Argument `Direction.NORTH` wird ausgeführt, wodurch Paule nach Norden schaut
+3. Die Funktion `walkDiagonalAndPutGrain` wird ausgeführt, wodurch Paule in Nord-Östliche-Richtung Diagonal über das Spielfeld läuft und auf jedem Feld ein Korn ablegt, bis er in der gegenüberliegenden Ecke angekommen ist
+4. Die Funktion `turnToDirection` mit dem Argument `Direction.WEST` wird ausgeführt, wodurch Paule nach Westen schaut
+5. Durch eine Abweisschleife wird sichergestellt, dass Paule bis zur nächsten Wand läuft
+6. Paule legt ein Korn auf dem Eckfeld des Territoriums ab
+6. Die Funktion `turnToDirection` mit dem Argument `Direction.EAST` wird ausgeführt, wodurch Paule nach Osten schaut
+7. Die Funktion `walkDiagonalAndPutGrain` wird ausgeführt, wodurch Paule in Süd-Westliche-Richtung Diagonal über das Spielfeld läuft und auf jedem Feld ein Korn ablegt, bis er in der gegenüberliegenden Ecke angekommen ist
+8. Paule ist in der letzten Ecke des Spielfelds angekommen, ist fertig und sagt `DONE`
+
+
+## b)
+**i**;

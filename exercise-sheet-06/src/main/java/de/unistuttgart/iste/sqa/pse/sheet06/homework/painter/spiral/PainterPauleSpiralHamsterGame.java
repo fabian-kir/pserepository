@@ -5,7 +5,7 @@ import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 /**
  * Describe the purpose of this class here.
  *
- * @author (Your name)
+ * @author Fabian Kirschenmann, Mika Hepper
  * @version (a version number or a date)
  */
 public class PainterPauleSpiralHamsterGame extends SimpleHamsterGame {
