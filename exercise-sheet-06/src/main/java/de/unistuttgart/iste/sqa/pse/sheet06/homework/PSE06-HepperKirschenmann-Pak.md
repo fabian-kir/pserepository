@@ -108,3 +108,10 @@ Feld liegen.
 3. Paule legt auf dem Endfeld ein letztes Grain ab, SCHREIT `LETS GOOOOOOOOO` und ist fertig
 
 > Korrekturanmerkung: Es wäre natürlich besser, turnRight als eine Hamster-Methode zu definieren, so wie es auch bei turnLeft ist. 
+
+---
+
+## Aufgabe 3
+
+Paule dreht sich ständig um zu prüfen wo genau sich Wände befinden. Er folgt stets der rechten Wand um ans Ende des Maze zu gelangen.
+Falls ein Grain Available ist, pickt Paule dieses. Die Do-While-Schleife (Durchlaufschleife) endet, wenn paule eine Grain im Mund hat.

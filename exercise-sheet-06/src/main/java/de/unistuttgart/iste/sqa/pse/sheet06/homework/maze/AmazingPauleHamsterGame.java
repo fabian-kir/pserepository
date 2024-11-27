@@ -1,14 +1,18 @@
 package de.unistuttgart.iste.sqa.pse.sheet06.homework.maze;
 
 import de.hamstersimulator.objectsfirst.datatypes.Direction;
+import de.hamstersimulator.objectsfirst.datatypes.Location;
 import de.hamstersimulator.objectsfirst.external.model.Hamster;
 import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
+
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 /**
  * Describe the purpose of this class here.
  *
  * @author Fabian Kirschenmann, Mika Hepper
- * @version (a version number or a date)
+ * @version 27112024
  */
 public class AmazingPauleHamsterGame extends SimpleHamsterGame {
 
@@ -35,10 +39,15 @@ public class AmazingPauleHamsterGame extends SimpleHamsterGame {
 	 * Brings paule through the Maze by always sticking to the left Wall
 	 *
 	 * @requires paule has to be initialized with mouthEmpty and only at the End of the Maze there should be one Grain
-	 * @ensures paule finds his way out of the Maze and picks up the Grain
+	 * @ensures paule ends on the end position of the maze where the grain is located
+	 * 			paule has one grain in his mouth in the end.
 	 */
 	void passTheMaze() {
 		Hamster paule = this.paule;
+		/*@
+			@loop_invariant: paules mouth is empty
+			@loop_variant: loop ends when paule has a grain in his mouth <=> found the exit
+		 */
 		do {
 			paule.move();
 			paule.turnLeft(); // Checks if there is a Wall on paules left
