@@ -2,11 +2,12 @@ package de.unistuttgart.iste.sqa.pse.sheet06.presence.stairs;
 
 import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 import de.unistuttgart.iste.sqa.pse.sheet06.presence.stairs.exceptions.UnsurmountableStepException;
+import de.unistuttgart.iste.sqa.pse.sheet06.presence.stairs.exceptions.ClimbingAbortedException;
 
 /**
  * Describe the purpose of this class here.
  *
- * @author (Your name)
+ * @author Fabian Kirschenmann, Mika Hepper
  * @version (a version number or a date)
  */
 public class StairsHamsterGame extends SimpleHamsterGame {
@@ -18,10 +19,13 @@ public class StairsHamsterGame extends SimpleHamsterGame {
 		// replace "/territories/StairsTerritory.ter" in the following line of code with
 		// "/territories/TooHighStairsTerritory.ter" or
 		// "/territories/TooWideStairsTerritory.ter" to load other territories.
-		this.loadTerritoryFromResourceFile("/territories/StairsTerritory.ter");
+		this.loadTerritoryFromResourceFile("/territories/TooWideStairsTerritory.ter");
 		this.displayInNewGameWindow();
 		game.startGame();
 	}
+
+
+
 
 	/**
 	 * Ignore this method.<br>
@@ -34,21 +38,38 @@ public class StairsHamsterGame extends SimpleHamsterGame {
 
 	/**
 	 * TODO Write JavaDoc here
-	 * 
+	 * @ensures paule is looking into Direction.EAST afterwards
 	 * @throws UnsurmountableStepException
 	 */
 	private void movePauleToNextStep() throws UnsurmountableStepException {
-		// TODO implement 4 (a) here
+		paule.turnLeft();
+		paule.move();
+
+		this.turnPauleRight();
+
+		if (paule.frontIsClear()) {
+			while(paule.frontIsClear()) {
+				paule.move();
+			}
+		} else {
+			throw new UnsurmountableStepException("The !?!Oo1ga Bo:)oga!?! stair you're trying to climb appears to be to high or not a stair at all.");
+		}
+
+
 	}
 
 	/**
 	 * TODO Write JavaDoc here
-	 * 
-	 * @return
+	 * @requires paule is looking to Direction.EAST
+	 * @return true if paule reached the TOp
 	 */
 	private boolean hasReachedTop() {
 		// TODO implement 4 (b) here
-		return true; // TODO replace this line with your implementation
+
+		if (paule.frontIsClear()) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -56,6 +77,15 @@ public class StairsHamsterGame extends SimpleHamsterGame {
 	 */
 	private void climbStairs() {
 		// TODO implement 4 (c) here
+		while (!hasReachedTop()) {
+            try {
+                this.movePauleToNextStep();
+            } catch (UnsurmountableStepException e) {
+                throw new ClimbingAbortedException("Climbing the stairs is not possible, because at least one step is to tall to be climbed.");
+            }
+
+        }
+		paule.write("Ooga Booga");
 	}
 
 	/**
