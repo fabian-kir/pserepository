@@ -37,7 +37,7 @@ public class StairsHamsterGame extends SimpleHamsterGame {
 	}
 
 	/**
-	 * TODO Write JavaDoc here
+	 * moves paule one Stair up and if that's not possible, due to a too high Wall, the programm will end with an Exception
 	 * @ensures paule is looking into Direction.EAST afterwards
 	 * @throws UnsurmountableStepException
 	 */
@@ -52,31 +52,28 @@ public class StairsHamsterGame extends SimpleHamsterGame {
 				paule.move();
 			}
 		} else {
-			throw new UnsurmountableStepException("The !?!Oo1ga Bo:)oga!?! stair you're trying to climb appears to be to high or not a stair at all.");
+			throw new UnsurmountableStepException("The stair you're trying to climb appears to be to high or not a stair at all.");
 		}
 
 
 	}
 
 	/**
-	 * TODO Write JavaDoc here
+	 * checks if paule reached the Top
 	 * @requires paule is looking to Direction.EAST
 	 * @return true if paule reached the TOp
 	 */
 	private boolean hasReachedTop() {
-		// TODO implement 4 (b) here
 
-		if (paule.frontIsClear()) {
-			return true;
-		}
-		return false;
-	}
+        return paule.frontIsClear();
+    }
 
 	/**
-	 * TODO Write JavaDoc here
+	 * Lets paule climb the Stairs until he is at the Top
+	 * @requires paule is initialized on a territory with stairs and is looking at Direction.EAST
+	 * @ensures thowns ClimbingAbortedException if Paule can't climb the Wall or lets paule say "Reached the Top :)"
 	 */
 	private void climbStairs() {
-		// TODO implement 4 (c) here
 		while (!hasReachedTop()) {
             try {
                 this.movePauleToNextStep();
@@ -85,7 +82,7 @@ public class StairsHamsterGame extends SimpleHamsterGame {
             }
 
         }
-		paule.write("Ooga Booga");
+		paule.write("Reached the Top :)");
 	}
 
 	/**
