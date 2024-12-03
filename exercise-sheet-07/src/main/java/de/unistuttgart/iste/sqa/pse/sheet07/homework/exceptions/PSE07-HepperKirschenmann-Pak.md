@@ -83,4 +83,22 @@ Errors sorgen daher immer für den Absturz des Programms und ein vorzeitiges Pro
 ## a)
 - FrontBlockedExceptions
 - MouthEmptyException
-## b) 
+
+---
+
+## d) 
+- Wenn man die Änderungen im Simulatorlog vernachlässigt, handelt es sich um eine stilistisch korrekte Abfrage.
+- Der Programmzustand vor und nach der Abfrage ist identisch. Die Abfrage hat also keine Auswirkungen auf Programmzustand.
+- Paule dreht sich zwar, hat aber nach 4 Drehungen wieder seinen Originalzustand erreicht.
+- Die Abfrage gibt immer einen return-Wert, der den Nachbedingungen entspricht.
+
+---
+
+## e)
+Wir können keine Invariante angeben, da wir nicht wissen, wie oft die Schleife ausführen wird, 
+da wir nicht wissen, wie viele Versuche paule brauchen wird, bis er nicht mehr zu lazy ist um zu laufen.
+Es könnte also theoretisch sein, dass das Programm und ebenfalls die Routine nie endet.
+
+---
+
+

@@ -5,7 +5,8 @@ import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 /**
  * A SimpleHamsterGame with exceptions
  *
- * @author (your name)
+ * @author Mika Hepper, Fabian Kirschenmann
+ * @version 031224
  */
 public class LazyHamsterGame extends SimpleHamsterGame {
 
@@ -24,14 +25,16 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 	 */
 	@Override
 	protected void run() {
-		tryToMove();
-		tryToMove();
-		tryToMove();
-		moveMultipleSteps(5);
+		moveMultipleSteps(10);
 	}
 
-	// TODO add documentation with contracts here
-	public void tryToMove() {
+	/**
+	 * When calling this, paule has a 75% chance of moving, otherwise this will throw an Exception
+	 * @requires paule is not standing in front of a wall
+	 * @ensures either paule takes one step forward or this will throw an exception
+	 * @throws TooLazyException
+	 */
+	public void tryToMove() throws TooLazyException{
 		if (Math.random() <= 0.75f) {
 			paule.move();
 		} else {
@@ -39,14 +42,70 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 		}
 	}
 
-	// TODO add documentation with contracts here
-	public void moveMultipleSteps(int numberOfSteps) {
-		// TODO Implement here.
+	/**
+	 * paule will check if he is Caged, if the program will throw an Exception
+	 * paule will make numberOfSteps moves into any available direction, but prefers forward, left, then backwards, last right.
+	 * @requires numberOfSteps > 0, paule is not caged - at least in one direction theres no wall.
+	 * @ensures moves numberOfSteps
+	 * @throws NoWayToGoException if paule has no way to go and is trapped (in all directions there's a wall)
+ 	 */
+
+
+	public void moveMultipleSteps(int numberOfSteps) throws NoWayToGoException {
+		boolean hasMoved = false;
+
+		if (isCaged()) {
+			throw new NoWayToGoException();
+		}
+		
+		for (int i = 0; i < numberOfSteps; i++) {
+			while (!paule.frontIsClear()) {
+				paule.turnLeft();
+			}
+
+			/* @Joy: Das ist doch viel schönerer Code. Wäre das Stilistisch unkorrekt wegen der while-true-break?
+			while (true) {
+				try {
+					tryToMove();
+					break;
+				} catch (TooLazyException e) {
+					paule.write("SENPAI I BELIEVE IN U uWu 😫");
+				};
+			}
+			 */
+
+			do {
+				try {
+					tryToMove();
+					hasMoved = true;
+				} catch (TooLazyException e) {
+					paule.write("SENPAI I BELIEVE IN U uWu 😫");
+				};
+
+			} while(!hasMoved);
+		}
 	}
 
-	// TODO add documentation with contracts here
+	/**
+	 * Checks if paule is caged, meaning wether on all 4 tiles next to paule is a wall.
+	 * @ensures paule will turn around 4 times
+	 * @return true if on all 4 tiles next to paules tile is a wall, else false
+	 */
 	public boolean isCaged() {
-		// TODO Implement here.
-		return true; // delete this line, if necessary.
+		boolean caged = true;
+
+		/*@
+		  @loop_invariant: each iteration i is increased by one and paule turns to the left once
+		  				   sets 'caged' to true if there's a wall in front of paule
+		  @loop_variant: loop ends after 4 iterations
+		 */
+		for (int i = 0; i<4; i++) {
+			if (paule.frontIsClear()) {
+				caged = false;
+			}
+			paule.turnLeft();
+		}
+
+		return caged;
 	}
 }
