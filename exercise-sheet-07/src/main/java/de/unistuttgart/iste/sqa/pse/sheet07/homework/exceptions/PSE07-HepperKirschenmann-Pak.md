@@ -61,9 +61,26 @@ RuntimeExceptions treten in einem korrekten Programm nicht auf.
 ---
 
 ## b)
-Checked Exceptions sind Exceptions die während der Kompilier Zeit geprüft werden. Die checked Exception **muss** in der jeweiligen Methode
-selbst mit try and catch behanldet werden oder die Exception muss mit einems bestimmten Namen geworfen werden.
-Checked Exceptions beziehen sich auf Fehler ausserhalb des Programmes wie SpeicherOrt, Internet, Bibliotheken, etc.
-Dabei gibt es einen Unterschied wie Checked Exceptions gehandhabt werden können:
-- Fully Checked Exception, dabei werden alle Kinder Klassen der geworfenen Exception auch überprüft
-- Partially Checked Exception, dabei werden nicht alle Kinder Klassen 
+Checked Exceptions sind Exceptions die während der Kompilierung geprüft werden. Die checked Exception **muss** in der jeweiligen Methode
+selbst mit try and catch behandelt werden oder die Exception muss mit einems bestimmten Namen geworfen werden.
+
+Checked Exceptions entstehen in aller Regel durch Fehler außerhalb der Kontrolle des Programms, also durch beispielsweise den Speicherort, andere Bibliotheken oder Interfaces die beispielsweise Daten aus dem Internet abrufen.
+Wenn eine Operation eine Exception deklariert, so müssen alle Aufrufer diese Exception durch try-catch handlen oder durch throw weiterwerfen.
+Diese Exceptions können während der CompileTime ermittelt werden (aber nicht immer).
+
+Unchecked Exceptions sind Exceptions welche nicht während der Kompilierung geprüft werden, sondern während der Runtime. Somit müssen 
+diese Exceptions nicht notwendigerweise gecatched oder geworfen werden, es steht dem Programmierer frei dies zu tun.
+In der Regel ist es auch schwer diese zu catchen, da diese oft tief im Programm entstehen und die Möglichkeit, dass diese geworfen werden können nicht explizit erwähnt werden.
+Außerdem verwendet man RuntimeExceptions in der Regel um auf beispielsweise logische Fehler hinzuweisen, sie deuten also auf ein unkorrektes Programm hin.
+In Java besitzt die Klasse der Unchecked Exceptions nur die Typen Error und RuntimeExceptions.
+
+Error können nicht gecatcht werden. Nach einem Error ist eine korrekte Fortsetzung des Programms nicht mehr möglich. Es kann nicht zu einem korrekten Programmzustand zurückgekehrt werden.
+Errors sorgen daher immer für den Absturz des Programms und ein vorzeitiges Programmende.
+
+---
+
+# Aufgabe 3
+## a)
+- FrontBlockedExceptions
+- MouthEmptyException
+## b) 

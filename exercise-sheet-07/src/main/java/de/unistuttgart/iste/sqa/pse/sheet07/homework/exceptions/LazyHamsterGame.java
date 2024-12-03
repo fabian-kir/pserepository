@@ -24,12 +24,19 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 	 */
 	@Override
 	protected void run() {
+		tryToMove();
+		tryToMove();
+		tryToMove();
 		moveMultipleSteps(5);
 	}
 
 	// TODO add documentation with contracts here
 	public void tryToMove() {
-		// TODO Implement here.
+		if (Math.random() <= 0.75f) {
+			paule.move();
+		} else {
+			throw new TooLazyException();
+		}
 	}
 
 	// TODO add documentation with contracts here
