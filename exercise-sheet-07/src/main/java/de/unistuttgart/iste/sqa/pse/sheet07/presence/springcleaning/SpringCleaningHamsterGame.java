@@ -20,5 +20,7 @@ public class SpringCleaningHamsterGame extends SimpleHamsterGame {
 	@Override
 	protected void run() {
 		// Put your code for part A exercise 3 (f), 4 (d) and 4 (e) here.
+		SpringCleaning cleaning = new SpringCleaning(paule);
+		cleaning.cleanCave();
 	}
 }
