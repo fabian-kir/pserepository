@@ -59,7 +59,9 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 		}
 
 		for (int i = 0; i < numberOfSteps; i++) {
-
+			while (!paule.frontIsClear()) {
+				paule.turnLeft();
+			}
 
 			/* @Joy: Das ist doch viel schönerer Code. Wäre das Stilistisch unkorrekt wegen der while-true-break?
 			while (true) {
@@ -78,14 +80,10 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 					hasMoved = true;
 				} catch (TooLazyException e) {
 					paule.write("SENPAI I BELIEVE IN U uWu 😫");
-					hasMoved = false;
-				}
-			} while(!hasMoved);
+				};
 
-			if (!paule.frontIsClear()) {
-				do {paule.turnLeft();}
-				while (!paule.frontIsClear());
-			}
+			} while(!hasMoved);
+			hasMoved = false;
 		}
 	}
 
