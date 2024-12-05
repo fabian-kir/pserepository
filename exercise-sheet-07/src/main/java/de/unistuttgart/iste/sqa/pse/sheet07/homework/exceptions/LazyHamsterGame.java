@@ -30,7 +30,7 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 
 	/**
 	 * When calling this, paule has a 75% chance of moving, otherwise this will throw an Exception
-	 * @requires paule is not standing in front of a wall
+	 * @requires  paule is not standing in front of a wall
 	 * @ensures either paule takes one step forward or this will throw an exception
 	 * @throws TooLazyException
 	 */
@@ -57,7 +57,7 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 		if (isCaged()) {
 			throw new NoWayToGoException();
 		}
-		
+
 		for (int i = 0; i < numberOfSteps; i++) {
 
 
@@ -108,7 +108,7 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 			}
 			paule.turnLeft();
 		}
-
+		game.getTerritory().getTerritorySize().getColumnCount();
 		return caged;
 	}
 }
