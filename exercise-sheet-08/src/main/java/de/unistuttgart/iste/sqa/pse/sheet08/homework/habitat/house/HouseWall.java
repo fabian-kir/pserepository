@@ -44,11 +44,46 @@ public final class HouseWall {
 	 * @param end   location of the wall's last part
 	 */
 	public HouseWall(final Location start, final Location end) {
-		// TODO implement exercise 2 (b) here.
+		this(start, end, null);
+		// TODO: Joy Fragen was Prof Becker von Konstruktor-Verkettung hält
+	}
+
+	public HouseWall(final Location start, final Location end, final Location door) {
+		if (start == null || end == null) {
+			throw new NullPointerException();
+		}
+		if (start.equals(end)) {
+			throw new IllegalArgumentException();
+		}
 
 		this.start = start;
 		this.end = end;
-		this.door = Optional.empty();
+		this.door = Optional.ofNullable(door); //Falls es eine foor gibt, setze this.door auf Door, ansonsten bleibt door "null"
+
+		if (! (isVertical() || isHorizontal()) ) {
+			throw new IllegalArgumentException("Wall is neither vertical nor horizontal");
+		}
+
+		if (isVertical()) {
+			if (this.door.isPresent() && isValidDoorOnVerticalWall(this.door)) {
+				throw new IllegalArgumentException("Door position is invalid");
+			}
+
+		} else if (isHorizontal()) {
+			if (this.door.isPresent() && isValidDoorOnHorizontalWall(this.door)) {
+				throw new IllegalArgumentException("Door position is invalid");
+			}
+		} else {
+			throw new IllegalArgumentException("The wall is neither horizontal nor vertical");
+		}
+
+		if (isStartSmallerThanEnd(start, end)) {
+			throw new IllegalArgumentException();
+		}
+
+		if ( this.door.isPresent() && (door.equals(start)) || (door.equals(end)) ) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**

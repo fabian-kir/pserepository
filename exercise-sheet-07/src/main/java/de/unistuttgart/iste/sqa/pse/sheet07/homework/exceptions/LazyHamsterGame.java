@@ -83,7 +83,7 @@ public class LazyHamsterGame extends SimpleHamsterGame {
 				};
 
 			} while(!hasMoved);
-			hasMoved = false;
+			// hasMoved = false;
 		}
 	}
 
