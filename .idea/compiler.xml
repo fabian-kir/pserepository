@@ -10,6 +10,7 @@
         <module name="exercise-sheet-05" />
         <module name="exercise-sheet-06" />
         <module name="exercise-sheet-07" />
+        <module name="exercise-sheet-08" />
       </profile>
     </annotationProcessing>
   </component>

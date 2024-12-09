@@ -1,5 +1,8 @@
 package de.unistuttgart.iste.sqa.pse.sheet07.presence.springcleaning;
 
+import de.hamstersimulator.objectsfirst.datatypes.Direction;
+import de.hamstersimulator.objectsfirst.datatypes.Location;
+import de.hamstersimulator.objectsfirst.external.model.Hamster;
 import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 
 /**
@@ -20,7 +23,10 @@ public class SpringCleaningHamsterGame extends SimpleHamsterGame {
 	@Override
 	protected void run() {
 		// Put your code for part A exercise 3 (f), 4 (d) and 4 (e) here.
-		SpringCleaning cleaning = new SpringCleaning(paule);
+		SpringCleaning cleaning = new SpringCleaning(paule, SpringCleaning.CleaningMode.CLEAN_ODD);
+		SpringCleaning cleaner = new SpringCleaning(new Hamster(game.getTerritory(), new Location(1,1), Direction.EAST, 0), SpringCleaning.CleaningMode.CLEAN_EVEN);
+
 		cleaning.cleanCave();
+		cleaner.cleanCave();
 	}
 }
