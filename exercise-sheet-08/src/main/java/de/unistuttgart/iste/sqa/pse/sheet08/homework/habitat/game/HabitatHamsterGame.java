@@ -5,6 +5,9 @@ import de.hamstersimulator.objectsfirst.datatypes.Location;
 import de.hamstersimulator.objectsfirst.external.model.TerritoryBuilder;
 import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.House;
+import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.HouseBuilder;
+import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.HouseWall;
+import org.ietf.jgss.ChannelBinding;
 
 /**
  * The habitat hamster game.
@@ -18,7 +21,11 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 
 		TerritoryBuilder territoryBuilder = game.getNewTerritoryBuilder();
 
-		// TODO Implement exercise 2 (d) between here...
+		HouseBuilder houseBuilder = new HouseBuilder(territoryBuilder, game.getTerritory());
+		houseBuilder.withWall(
+				new HouseWall(new Location(1, 1), new Location(1, 10))
+		);
+		House house = houseBuilder.withWall();
 
 		// ...and here. Do NOT put any code after here.
 

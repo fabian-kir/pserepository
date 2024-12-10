@@ -1,6 +1,8 @@
 package de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house;
 
 import de.hamstersimulator.objectsfirst.datatypes.Location;
+
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -44,11 +46,8 @@ public final class HouseWall {
 	 * @param end   location of the wall's last part
 	 */
 	public HouseWall(final Location start, final Location end) {
-		this(start, end, null);
-		// TODO: Joy Fragen was Prof Becker von Konstruktor-Verkettung hält
-	}
+		this.door = Optional.empty();
 
-	public HouseWall(final Location start, final Location end, final Location door) {
 		if (start == null || end == null) {
 			throw new NullPointerException();
 		}
@@ -58,32 +57,15 @@ public final class HouseWall {
 
 		this.start = start;
 		this.end = end;
-		this.door = Optional.ofNullable(door); //Falls es eine foor gibt, setze this.door auf Door, ansonsten bleibt door "null"
 
 		if (! (isVertical() || isHorizontal()) ) {
 			throw new IllegalArgumentException("Wall is neither vertical nor horizontal");
-		}
-
-		if (isVertical()) {
-			if (this.door.isPresent() && isValidDoorOnVerticalWall(this.door)) {
-				throw new IllegalArgumentException("Door position is invalid");
-			}
-
-		} else if (isHorizontal()) {
-			if (this.door.isPresent() && isValidDoorOnHorizontalWall(this.door)) {
-				throw new IllegalArgumentException("Door position is invalid");
-			}
-		} else {
-			throw new IllegalArgumentException("The wall is neither horizontal nor vertical");
 		}
 
 		if (isStartSmallerThanEnd(start, end)) {
 			throw new IllegalArgumentException();
 		}
 
-		if ( this.door.isPresent() && (door.equals(start)) || (door.equals(end)) ) {
-			throw new IllegalArgumentException();
-		}
 	}
 
 	/**
@@ -98,8 +80,21 @@ public final class HouseWall {
 	 *
 	 * @param newDoor door to be added into the housewall.
 	 */
-	public void addDoor(final Location newDoor) {
-		// TODO implement exercise 2 (c) here.
+	public void addDoor(final Location newDoor) throws TooManyDoorsException {
+		if (this.door.isPresent()) {
+			throw new TooManyDoorsException("There can only be one door in each wall");
+		}
+		if ( (newDoor.equals(start)) || (newDoor.equals(end))) {
+			throw new IllegalArgumentException("Doors cant be on the start or end of a Wall");
+		}
+		if (
+				!( (isVertical() && isValidDoorOnVerticalWall(newDoor))
+				|| (isHorizontal() && isValidDoorOnHorizontalWall(newDoor))
+		 	)) {
+			throw new IllegalArgumentException("The Position of the Door is invalid");
+		}
+
+		this.door = Optional.of(newDoor);
 	}
 
 	/**
@@ -108,7 +103,7 @@ public final class HouseWall {
 	 * @return the first tile of the wall.
 	 */
 	public Location getStart() {
-		return start;
+		return new Location(this.start.getRow(), this.start.getColumn());
 	}
 
 	/**
@@ -117,7 +112,7 @@ public final class HouseWall {
 	 * @return the last tile of the wall.
 	 */
 	public Location getEnd() {
-		return end;
+		return new Location(this.end.getRow(), this.end.getColumn());
 	}
 
 	/**
@@ -125,8 +120,12 @@ public final class HouseWall {
 	 *
 	 * @return the door of the wall.
 	 */
-	public Optional<Location> getDoor() {
-		return door;
+	public Location getDoor() throws NoDoorException {
+		if (this.door.isPresent()) {
+			return this.door.get();
+		} else {
+			throw new NoDoorException("There has not been inserted a wall");
+		}
 	}
 
 	/**

@@ -12,9 +12,10 @@ import java.util.Date;
 // public class Person { // Klasse nicht final, Vererbung möglich
 public final class Person {
 
-	public String name;
-	//public Date birthDate; // final fehlt, birthDate kann neu zugewiesen werden.
-	public final Date birthDate;
+	//public String name; //private fehlt
+	private String name;
+	//public Date birthDate; // final und private fehlt, birthDate kann neu zugewiesen werden.
+	private final Date birthDate;
 	/**
 	 * Creates a new person with the given name and birthdate.
 	 *

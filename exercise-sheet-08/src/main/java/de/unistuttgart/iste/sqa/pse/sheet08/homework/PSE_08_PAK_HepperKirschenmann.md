@@ -63,8 +63,8 @@ House: mind eine Hauswand(Housewall)
 Housewall:
 - kann optonoal eine Türe besitzen, Türe muss zwischen start und end liegen, aber nicht direkt auf start/end
 - Position wird über erste(start) und letzte(end) Position des Feldes beschrieben (Tupel) 
-- start muss nher am Ursprung sein als end
-- mind zwei Felder land, start =/ end
+- start muss näher am Ursprung sein als end
+- mind zwei Felder lang, start =/ end
 
 Vorbedingungen immer selber prüfen
 Walls 

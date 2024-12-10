@@ -3,4 +3,5 @@ open module exercise {
 	exports de.unistuttgart.iste.sqa.pse.sheet08.homework.immutable;
 
 	requires de.hamstersimulator.objectsfirst.main;
+    requires java.security.jgss;
 }
