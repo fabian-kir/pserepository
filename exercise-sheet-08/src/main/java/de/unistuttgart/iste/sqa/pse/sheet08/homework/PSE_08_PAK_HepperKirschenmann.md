@@ -94,3 +94,14 @@ HouseWall
 ---
 
 ## f)
+Im Code lassen sich nun beide Implementierungen finden. 
+Im 1. Fall muss das House Objekt beim Abruf von getDoors alle Wände durchsuchen. In jeder Wand prüfen ob eine Tür existiert und ggf. diese
+in einem Set speichern.
+Im 2. Fall wird dieser Schritt direkt bei der Erstellung des House-Objekts (Konstruktor) nach der Übergabe aller walls durchgeführt.
+
+Im 2. Fall bedeutet das, dass wenn der BenutzeDie Zeit die dabei gespart wird, wird dabei aber dann bei der Erstellung eines neuen House benötigt.
+r .getDoors() abruft, direkt und fast ohne Verzögerung alle Türen ausgegeben werden können. 
+
+Zugriffsgleichheit bedeutet, dass der User nicht selbst darüber entscheidet, wann die doors gesammelt werden, und es für den User auch
+das exakt gleiche Resultat liefert, in beiden Fällen. Den einzigen Unterschied den der User bei beiden Implementierungen bemerken könnte, wäre ein Performance-Unterschied pro Abfrage.
+In beiden Fällen soll aber der return-Wert exakt gleich sein, auch würde man die Methoden nicht unterschiedlich benennen.

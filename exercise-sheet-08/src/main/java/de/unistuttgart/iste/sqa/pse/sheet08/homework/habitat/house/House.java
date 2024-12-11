@@ -35,6 +35,11 @@ public final class House {
 		// this version will collect all doors when getDoors is called.
 		HashSet<Location> allDoors = new HashSet<>();
 
+		/*
+		@loop_invariant wall is the wall that will be searched for a door each iteration. Changes each iteration to a new wall from the set this.walls.
+						for each iteration this might add a Location object to allDoors, if in the certain wall there's been a door.
+		@loop_variant ends after all walls have been looked through for a door.
+		 */
 		for (HouseWall wall : this.getWalls()) {
 			try {
 				allDoors.add(wall.getDoor());
@@ -61,6 +66,11 @@ public final class House {
 		this.walls = walls;
 
 		// Für den 2. Lösungsweg der Aufgabe f)
+		/*
+		@loop_invariant wall is the wall that will be searched for a door each iteration. Changes each iteration to a new wall from the set walls.
+						for each iteration this might add a Location object to allDoors, if in the certain wall there's been a door.
+		@loop_variant ends after all walls have been looked through for a door.
+		 */
 		for (HouseWall wall : walls) {
 			try {
 				this.allDoors.add(wall.getDoor());

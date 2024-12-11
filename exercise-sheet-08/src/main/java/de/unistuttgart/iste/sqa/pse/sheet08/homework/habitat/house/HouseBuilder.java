@@ -76,7 +76,7 @@ public final class HouseBuilder {
 			throw new IllegalStateException("No walls specified.");
 		}
 		/*@
-		@ loop_invariant checked for n walls whether all tile they cover are
+		@ loop_invariant checked for n walls whether all tiles they cover are
 		@					free, if n is the number of already executed loop iterations
 		@ decreasing walls.size() - n, if n is the number of already executed loop iterations
 		@*/
@@ -110,6 +110,12 @@ public final class HouseBuilder {
 			throw new IllegalStateException("Location on Territory is blocked, cannot build Wall.");
 		}
 		if (wall.isHorizontal()) {
+			/*  @loop_invariant each iteration c is increased by one. The starts with the Column number of the wall.
+								each iteration there will be a wall tile placed, if at the location is not a door.
+				@loop_variant: loop ends when c has the same column number as the end of the wall.
+							   There will be a wall tile at each positon of the wall, except for where the door is, if there even is one.
+
+			 */
 			for (int c = wall.getStart().getColumn(); c <= wall.getEnd().getColumn(); c++) {
 				Location tileLocation = new Location(wall.getStart().getRow(),c);
 
@@ -123,6 +129,12 @@ public final class HouseBuilder {
 			}
 		}
 		else if (wall.isVertical()) {
+			/*  @loop_invariant each iteration c is increased by one. The starts with the row number of the wall.
+								each iteration there will be a wall tile placed, if at the location is not a door.
+				@loop_variant: loop ends when c has the same row number as the end of the wall.
+							   There will be a wall tile at each positon of the wall, except for where the door is, if there even is one.
+
+			 */
 			for (int r = wall.getStart().getRow(); r <= wall.getEnd().getRow(); r++) {
 				Location tileLocation = new Location(r,wall.getStart().getColumn());
 
