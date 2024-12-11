@@ -62,8 +62,8 @@ public final class HouseWall {
 			throw new IllegalArgumentException("Wall is neither vertical nor horizontal");
 		}
 
-		if (isStartSmallerThanEnd(start, end)) {
-			throw new IllegalArgumentException();
+		if (!isStartSmallerThanEnd(start, end)) {
+			throw new IllegalArgumentException("Start is smaller than end");
 		}
 
 	}

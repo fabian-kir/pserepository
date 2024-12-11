@@ -22,10 +22,25 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 		TerritoryBuilder territoryBuilder = game.getNewTerritoryBuilder();
 
 		HouseBuilder houseBuilder = new HouseBuilder(territoryBuilder, game.getTerritory());
+		Location door = new Location(4, 10);
 		houseBuilder.withWall(
 				new HouseWall(new Location(1, 1), new Location(1, 10))
 		);
-		House house = houseBuilder.withWall();
+		houseBuilder.withWall(
+				new HouseWall(new Location(2, 10), new Location(7, 10))
+		);
+		houseBuilder.withWall(
+				new HouseWall(new Location(7, 4), new Location(7, 9))
+		);
+		houseBuilder.withWall(
+				new HouseWall(new Location(6, 1), new Location(6, 4))
+		);
+		houseBuilder.withWall(
+				new HouseWall(new Location(2, 1), new Location(5, 1))
+		);
+		// @Fabi wie kann ich hier eine Türe bei den bestimmten Locations hinzufügen?
+		House house = houseBuilder.build();
+
 
 		// ...and here. Do NOT put any code after here.
 

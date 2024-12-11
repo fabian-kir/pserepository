@@ -103,6 +103,24 @@ public final class HouseBuilder {
 	 */
 	private void buildWall(final HouseWall wall) {
 		// TODO implement exercise 2 (e) here.
+		if(isTileOfWallBlockedOnTerritory(wall)) {
+			throw new IllegalStateException("Location on Territory is blocked, cannot build Wall.");
+		}
+		if (wall.isHorizontal()) {
+			for (int c = wall.getStart().getColumn(); c <= wall.getEnd().getColumn(); c++) {
+				Location columnLocation = new Location(wall.getStart().getRow(),c);
+				territoryBuilder.wallAt(columnLocation);
+
+
+			}
+		}
+		else if (wall.isVertical()) {
+			for (int r = wall.getStart().getRow(); r <= wall.getEnd().getRow(); r++) {
+				Location rowLocation = new Location(r,wall.getStart().getColumn());
+				territoryBuilder.wallAt(rowLocation);
+			}
+		}
+
 	}
 
 	/**
