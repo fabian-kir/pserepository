@@ -7,6 +7,7 @@ import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.House;
 import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.HouseBuilder;
 import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.HouseWall;
+import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.TooManyDoorsException;
 import org.ietf.jgss.ChannelBinding;
 
 /**
@@ -22,23 +23,44 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 		TerritoryBuilder territoryBuilder = game.getNewTerritoryBuilder();
 
 		HouseBuilder houseBuilder = new HouseBuilder(territoryBuilder, game.getTerritory());
-		Location door = new Location(4, 10);
+
 		houseBuilder.withWall(
 				new HouseWall(new Location(1, 1), new Location(1, 10))
 		);
-		houseBuilder.withWall(
-				new HouseWall(new Location(2, 10), new Location(7, 10))
-		);
-		houseBuilder.withWall(
-				new HouseWall(new Location(7, 4), new Location(7, 9))
-		);
+
+
+		Location doorLocation = new Location(7, 5);
+		HouseWall newWall = new HouseWall(new Location(7, 4), new Location(7, 9));
+		try {
+			newWall.addDoor(doorLocation);
+		} catch (TooManyDoorsException e) {
+			System.out.println("TODO handle excep");
+			// throw new TooManyDoorsException("You cannot add two doors into the same wall");
+			// TODO Joy fragen wie ich mit dieser Exception umgehe. Sie sollte nie auftreten aber trotzdem muss ich sie ja catchen. Darf ich sie ignorieren?
+		}
+		houseBuilder.withWall(newWall);
+
+
+		doorLocation = new Location(4,10);
+		newWall = new HouseWall(new Location(2,10), new Location(7,10));
+		try {
+			newWall.addDoor(doorLocation);
+		} catch (TooManyDoorsException e) {
+			System.out.println("TODO handle excep");
+			// throw new TooManyDoorsException("You cannot add two doors into the same wall");
+			// TODO Joy fragen wie ich mit dieser Exception umgehe. Sie sollte nie auftreten aber trotzdem muss ich sie ja catchen. Darf ich sie ignorieren?
+		}
+		houseBuilder.withWall(newWall);
+
+
 		houseBuilder.withWall(
 				new HouseWall(new Location(6, 1), new Location(6, 4))
 		);
 		houseBuilder.withWall(
 				new HouseWall(new Location(2, 1), new Location(5, 1))
 		);
-		// @Fabi wie kann ich hier eine Türe bei den bestimmten Locations hinzufügen?
+
+
 		House house = houseBuilder.build();
 
 
@@ -71,7 +93,7 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 	 * Requires that paule is at location (1, 11).
 	 */
 	private void checkNorthernHouseWall() {
-		assert paule.getLocation().equals(new Location(1, 11));
+		/*assert paule.getLocation().equals(new Location(1, 11));
 		turnTowards(Direction.WEST);
 		checkWallSegments(3);
 		turnRight();
@@ -82,6 +104,12 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 		checkDoor();
 		checkWallSegments(2);
 		paule.move();
+		*/
+		assert paule.getLocation().equals(new Location(1, 11));
+		turnTowards(Direction.WEST);
+		checkWallSegments(10);
+		paule.move();
+		paule.write("Done");
 	}
 
 	/**
@@ -91,12 +119,20 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 	 * Requires that paule is at location (7, 11).
 	 */
 	private void checkEasternHouseWall() {
-		assert paule.getLocation().equals(new Location(7, 11));
+		/*assert paule.getLocation().equals(new Location(7, 11));
 		turnTowards(Direction.NORTH);
 		checkWallSegments(2);
 		paule.move();
 		checkDoor();
 		checkWallSegments(2);
+		paule.move();
+		*/
+		assert paule.getLocation().equals(new Location(8, 11));
+		turnTowards(Direction.NORTH);
+		checkWallSegments(2);
+		paule.move();
+		checkDoor();
+		checkWallSegments(4);
 		paule.move();
 	}
 
@@ -107,9 +143,21 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 	 * Requires that paule is at location (7, 0).
 	 */
 	private void checkSouthernHouseWall() {
-		assert paule.getLocation().equals(new Location(7, 0));
+		/*assert paule.getLocation().equals(new Location(7, 0));
 		turnTowards(Direction.EAST);
 		checkWallSegments(10);
+		paule.move();
+		 */
+		assert paule.getLocation().equals(new Location(7, 0));
+		turnTowards(Direction.EAST);
+		checkWallSegments(3);
+		this.turnRight();
+		paule.move();
+		paule.turnLeft();
+		checkWallSegments(1);
+		paule.move();
+		checkDoor();
+		checkWallSegments(5);
 		paule.move();
 	}
 
@@ -120,6 +168,11 @@ public final class HabitatHamsterGame extends SimpleHamsterGame {
 	 * Requires that paule is at the territory's origin.
 	 */
 	private void checkWesternHouseWall() {
+		/*assert paule.getLocation().equals(new Location(0, 0));
+		turnTowards(Direction.SOUTH);
+		checkWallSegments(6);
+		paule.move();
+		 */
 		assert paule.getLocation().equals(new Location(0, 0));
 		turnTowards(Direction.SOUTH);
 		checkWallSegments(6);

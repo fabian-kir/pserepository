@@ -91,3 +91,6 @@ HouseWall
 !- HouseWall  != Wall
 
 
+---
+
+## f)

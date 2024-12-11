@@ -3,6 +3,8 @@ package de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house;
 import de.hamstersimulator.objectsfirst.datatypes.Location;
 import de.hamstersimulator.objectsfirst.external.model.Territory;
 import de.hamstersimulator.objectsfirst.external.model.TerritoryBuilder;
+
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -91,6 +93,7 @@ public final class HouseBuilder {
 		for (HouseWall wall : walls) {
 			buildWall(wall);
 		}
+
 		return new House(walls);
 	}
 
@@ -108,16 +111,28 @@ public final class HouseBuilder {
 		}
 		if (wall.isHorizontal()) {
 			for (int c = wall.getStart().getColumn(); c <= wall.getEnd().getColumn(); c++) {
-				Location columnLocation = new Location(wall.getStart().getRow(),c);
-				territoryBuilder.wallAt(columnLocation);
+				Location tileLocation = new Location(wall.getStart().getRow(),c);
 
-
+				try {
+					if(!(wall.getDoor().equals(tileLocation))) {
+						territoryBuilder.wallAt(tileLocation);
+					}
+				} catch (NoDoorException e) {
+					territoryBuilder.wallAt(tileLocation);
+				}
 			}
 		}
 		else if (wall.isVertical()) {
 			for (int r = wall.getStart().getRow(); r <= wall.getEnd().getRow(); r++) {
-				Location rowLocation = new Location(r,wall.getStart().getColumn());
-				territoryBuilder.wallAt(rowLocation);
+				Location tileLocation = new Location(r,wall.getStart().getColumn());
+
+				try {
+					if(!(wall.getDoor().equals(tileLocation))) {
+						territoryBuilder.wallAt(tileLocation);
+					}
+				} catch (NoDoorException e) {
+					territoryBuilder.wallAt(tileLocation);
+				}
 			}
 		}
 
@@ -180,4 +195,5 @@ public final class HouseBuilder {
 		}
 		return false;
 	}
+
 }

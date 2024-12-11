@@ -84,6 +84,7 @@ public final class HouseWall {
 		if (this.door.isPresent()) {
 			throw new TooManyDoorsException("There can only be one door in each wall");
 		}
+
 		if ( (newDoor.equals(start)) || (newDoor.equals(end))) {
 			throw new IllegalArgumentException("Doors cant be on the start or end of a Wall");
 		}

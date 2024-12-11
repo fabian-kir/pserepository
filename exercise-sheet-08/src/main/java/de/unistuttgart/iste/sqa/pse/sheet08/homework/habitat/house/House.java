@@ -1,5 +1,8 @@
 package de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house;
 
+import de.hamstersimulator.objectsfirst.datatypes.Location;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,6 +14,7 @@ import java.util.Set;
  *
  */
 public final class House {
+	private final HashSet<Location> allDoors = new HashSet<>();
 
 	private final Set<HouseWall> walls;
 
@@ -27,9 +31,22 @@ public final class House {
 	 *
 	 * @return doors of the house.
 	 */
-	public Set<Door> getDoors() {
-		// TODO implement 2 (g) here
-		return Set.of(); // TODO remove this line if necessary.
+	public Set<Location> getDoors() {
+		// this version will collect all doors when getDoors is called.
+		HashSet<Location> allDoors = new HashSet<>();
+
+		for (HouseWall wall : this.getWalls()) {
+			try {
+				allDoors.add(wall.getDoor());
+			} catch (NoDoorException ignored) {};
+		}
+
+		return allDoors;
+	}
+
+	// 2. Möglichkeit
+	public Set<Location> getDoors() {
+		return this.allDoors;
 	}
 
 	/**
@@ -42,5 +59,12 @@ public final class House {
 			throw new IllegalArgumentException("A house must have at least one wall, but there are none.");
 		}
 		this.walls = walls;
+
+		// Für den 2. Lösungsweg der Aufgabe f)
+		for (HouseWall wall : walls) {
+			try {
+				this.allDoors.add(wall.getDoor());
+			} catch (NoDoorException ignored) {};
+		}
 	}
 }
