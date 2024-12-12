@@ -1,5 +1,7 @@
 package de.unistuttgart.iste.sqa.pse.sheet08.homework.immutable;
 
+import de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house.NoDoorException;
+
 import java.util.Date;
 
 /**
@@ -52,6 +54,10 @@ public final class Person {
 		// Durch new Date wird ein neues Objekt der Klasse Date erstellt, welchem der gleiche Wert wie birthDate zugewiesen wird. Dadurch ist "new Date" eine andere Referenz und
 		// falls diese Verändert wird, verändert sich birthDate nicht.
 		return new Date(this.birthDate.getDate());
+	}
+
+	public Integer test() throws Exception {
+		throw new IllegalArgumentException();
 	}
 
 

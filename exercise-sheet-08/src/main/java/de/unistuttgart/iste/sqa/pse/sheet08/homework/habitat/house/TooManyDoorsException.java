@@ -1,6 +1,9 @@
 package de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house;
 
-// Define a custom exception
+/**
+ *
+ * Exception that should be used when more than once the .addDoor method of HouseWall is used on the same object.
+ */
 public class TooManyDoorsException extends IllegalArgumentException {
     // Default constructor
     public TooManyDoorsException() {
