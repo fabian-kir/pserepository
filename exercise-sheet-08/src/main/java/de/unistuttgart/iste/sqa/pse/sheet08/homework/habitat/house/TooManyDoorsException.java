@@ -1,7 +1,7 @@
 package de.unistuttgart.iste.sqa.pse.sheet08.homework.habitat.house;
 
 // Define a custom exception
-public class TooManyDoorsException extends Exception {
+public class TooManyDoorsException extends IllegalArgumentException {
     // Default constructor
     public TooManyDoorsException() {
         super();

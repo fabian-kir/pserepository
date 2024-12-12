@@ -50,9 +50,12 @@ public final class House {
 	}
 
 	// 2. Möglichkeit
+	/*
 	public Set<Location> getDoors() {
 		return this.allDoors;
 	}
+
+	 */
 
 	/**
 	 * Creates a new house with the specified walls.
