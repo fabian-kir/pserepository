@@ -1,0 +1,12 @@
+package de.unistuttgart.iste.sqa.pse.sheet09.homework.olympics;
+
+/**
+ * Implements a Race Plan in which the the RunnerHamster runs slowly.
+ */
+public final class RunSlowlyRacePlan implements RacePlan {
+
+	@Override
+	public void nextStep(final RunnerHamster hamster) {
+		hamster.runSlowly();
+	}
+}
