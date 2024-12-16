@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="exercise-sheet-01" />
+        <module name="exercise-sheet-09" />
         <module name="exercise-sheet-05" />
         <module name="exercise-sheet-06" />
         <module name="exercise-sheet-07" />
