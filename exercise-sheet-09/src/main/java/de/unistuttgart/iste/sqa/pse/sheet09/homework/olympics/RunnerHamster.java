@@ -162,8 +162,6 @@ public final class RunnerHamster extends Hamster {
 	 * runningTactic. Ensures that the actionsTaken counter increments by one.
 	 */
 	public void executeNextAction() {
-		System.out.println("ENERGY: " + this.getEnergyRemaining());
-		System.out.println("ACTIONS LEFT: " + (30 - this.getActionsTaken()));
 		if (isAtFeedZone() && feedingTactic.isFeedingRequired()) {
 			useFeedZone();
 		} else {

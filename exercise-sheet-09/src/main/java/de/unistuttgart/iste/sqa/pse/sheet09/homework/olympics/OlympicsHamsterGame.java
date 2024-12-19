@@ -25,11 +25,11 @@ public final class OlympicsHamsterGame extends SimpleHamsterGame {
 	protected void run() {
 		paule.write("Welcome to the first race of the day!");
 		setupTaskC();
-		//race(); //TODO
+		race();
 
 		paule.write("And now for the second race!");
 		setupTaskD();
-		//race(); //TODO
+		race();
 
 		paule.write("To top it all off: Speedy`s attempt at beating the WORLD RECORD!");
 		recordAttempt();
@@ -48,32 +48,44 @@ public final class OlympicsHamsterGame extends SimpleHamsterGame {
 		// put your code for bonustask (f) between here...
 		speedy.setRacePlan(new RunSteadilyRacePlan());
 		speedy.setFeedingTactics(new FeedTwiceStrategy());
-		for (int a = 0; a < 9; a++) {
+
+		/*
+		@loop_invariant: i is the amount of moves made, in Steady run mode
+		@loop_variant: ends when 9 actions were performed.
+		 */
+		for (int i = 0; i < 9; i++) {
 			speedy.executeNextAction();
 			System.out.println("Steadily1");
-
 		}
+
 		speedy.setRacePlan(new SprinterRacePlan());
-		//take energy
 		speedy.executeNextAction();
 		System.out.println("TakeEnergy");
 		speedy.executeNextAction();
 		System.out.println("TakeEnergy2");
-		for (int e = 0; e < 6; e++) {
+
+		/*
+		@loop_invariant: i is the amount of moves made in Sprinting run mode
+		@loop_variant:  ends when 6 actions were performed
+		 */
+		for (int i = 0; i < 6; i++) {
 			speedy.executeNextAction();
 			System.out.println("Sprint");
-
 		}
+
 		speedy.executeNextAction();
 		System.out.println("Take Energy");
 		speedy.executeNextAction();
 		System.out.println("Take Energy2");
 		speedy.executeNextAction();
 		System.out.println("Sprint");
-
-
 		speedy.setRacePlan(new RunSteadilyRacePlan());
-		for (int m = 0; m < 10; m++) {
+
+		/*
+		@loop_invariant: i is the amount of moves made in Steady run mode
+		@loop_variant: ends when 10 actions were performed
+		 */
+		for (int i = 0; i < 10; i++) {
 			speedy.executeNextAction();
 			System.out.println("Steadily2");
 		}
