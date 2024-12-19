@@ -55,18 +55,24 @@ public final class OlympicsHamsterGame extends SimpleHamsterGame {
 		}
 		speedy.setRacePlan(new SprinterRacePlan());
 		//take energy
+		speedy.executeNextAction();
 		System.out.println("TakeEnergy");
 		speedy.executeNextAction();
-		speedy.executeNextAction();
-		for (int e = 0; e < 7; e++) {
+		System.out.println("TakeEnergy2");
+		for (int e = 0; e < 6; e++) {
 			speedy.executeNextAction();
 			System.out.println("Sprint");
 
 		}
+		speedy.executeNextAction();
+		System.out.println("Take Energy");
+		speedy.executeNextAction();
+		System.out.println("Take Energy2");
+		speedy.executeNextAction();
+		System.out.println("Sprint");
+
+
 		speedy.setRacePlan(new RunSteadilyRacePlan());
-		System.out.println("TakeEnergy");
-		speedy.executeNextAction();
-		speedy.executeNextAction();
 		for (int m = 0; m < 10; m++) {
 			speedy.executeNextAction();
 			System.out.println("Steadily2");
