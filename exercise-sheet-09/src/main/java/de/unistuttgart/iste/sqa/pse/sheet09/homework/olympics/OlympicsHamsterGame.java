@@ -25,11 +25,11 @@ public final class OlympicsHamsterGame extends SimpleHamsterGame {
 	protected void run() {
 		paule.write("Welcome to the first race of the day!");
 		setupTaskC();
-		//race(); TODO
+		//race(); //TODO
 
 		paule.write("And now for the second race!");
 		setupTaskD();
-		//race(); TODO
+		//race(); //TODO
 
 		paule.write("To top it all off: Speedy`s attempt at beating the WORLD RECORD!");
 		recordAttempt();
@@ -48,19 +48,28 @@ public final class OlympicsHamsterGame extends SimpleHamsterGame {
 		// put your code for bonustask (f) between here...
 		speedy.setRacePlan(new RunSteadilyRacePlan());
 		speedy.setFeedingTactics(new FeedTwiceStrategy());
-		for (int e = 0; e < 9; e++) {
+		for (int a = 0; a < 9; a++) {
 			speedy.executeNextAction();
+			System.out.println("Steadily1");
+
 		}
-
-		speedy.setFeedingTactics(new FeedNeverStrategy());
 		speedy.setRacePlan(new SprinterRacePlan());
-
-		for (int e = 10; e < 17; e++) {
+		//take energy
+		System.out.println("TakeEnergy");
+		speedy.executeNextAction();
+		speedy.executeNextAction();
+		for (int e = 0; e < 7; e++) {
 			speedy.executeNextAction();
+			System.out.println("Sprint");
+
 		}
 		speedy.setRacePlan(new RunSteadilyRacePlan());
-		for (int e = 16; e < 31; e++) {
+		System.out.println("TakeEnergy");
+		speedy.executeNextAction();
+		speedy.executeNextAction();
+		for (int m = 0; m < 10; m++) {
 			speedy.executeNextAction();
+			System.out.println("Steadily2");
 		}
 
 		// ...and here. Do NOT put any code after here.
