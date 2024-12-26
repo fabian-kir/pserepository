@@ -291,3 +291,4 @@ Also wird implements anstatt extends benutzt:
 
 
 # Vorlesung 16 & 17 Collection-Datenstrukturen
+test
