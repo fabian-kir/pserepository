@@ -168,3 +168,5 @@ Sieht man in Zeile 6, wo paule eventuell den dynamischen Typ RotatingHamster ann
 Falls durch Mehrfachvererbung, zwei Klassen die gleiche Methode übergeben, mit den gleichen Parameterlisten, dann ist unklar, 
 ob das Programm dadurch einen Fehler werfen wird, oder welche Methode dann bevorzugt wird (und welche überschrieben). (Diamantproblem)
 
+=> Unübersichtlich, Mehrdeutig
+=> Lösung: Mika anrufen und mit ihm Date ausmachen: 0173 1748614

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="in"
+                 name="Instance Name" start-page="PSE09-Pak-HepperKirschenmann.md">
+
+    <toc-element topic="PSE09-Pak-HepperKirschenmann.md"/>
+</instance-profile>
