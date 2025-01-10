@@ -6,6 +6,7 @@ import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.Ruler;
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.StationeryItem;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Represents a company.
@@ -18,6 +19,7 @@ public final class Company {
 
 	private final StorageRack itemStorageRack;
 	private final Buffer orderBuffer;
+	private Set<Customer> customers;
 	// TODO: Add data structure for exercise part (i) here.
 
 	// TODO add documentation here.
@@ -38,7 +40,22 @@ public final class Company {
 
 	// TODO add documentation here.
 	public void processIncomingOrder(final Identifier identifier, final Customer customer) {
-		// TODO implement exercises part (h) and (i) here.
+		Optional<StationeryItem> orderedItem = this.itemStorageRack.getItemFromIdentifier(identifier);
+		if (orderedItem.isPresent()) {
+			this.orderBuffer.bufferItem(orderedItem.get());
+			this.handleCustomerMarketing(customer);
+		} else {
+			System.out.format("Ignoring an order because theres no Item with the Identifier %s in storage.", identifier);
+			// TODO: This should definitely throw an Exception in any real world application because we just forget about an order!!!
+		}
+	}
+
+	public void handleCustomerMarketing(Customer customer) {
+		if (!this.customers.contains(customer)) {
+			this.customers.add(customer);
+			StationeryItem bonusItem = this.getBonusItem();
+			this.orderBuffer.bufferItem(bonusItem);
+		}
 	}
 
 	/**

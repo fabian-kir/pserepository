@@ -91,6 +91,11 @@ public final class StorageRack {
 		}
 	}
 
+	public Optional<StationeryItem> getItemFromIdentifier(Identifier identifier) {
+		int compartmentNumber = this.identifierToStorageIndex.get(identifier);
+		return this.getItem(compartmentNumber);
+	}
+
 	/**
 	 * Get the capacity of this warehouse.
 	 *

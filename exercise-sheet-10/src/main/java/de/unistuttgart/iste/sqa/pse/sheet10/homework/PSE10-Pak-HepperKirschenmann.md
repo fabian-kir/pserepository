@@ -135,3 +135,12 @@ Am sinnvollsten ist es hierfür eine Map zu verwenden. Ich entscheide mich für 
 Ein Stack macht am meisten Sinn. Er folgt dem LIFO (last-in-first-out) Prinzip so wie in der Aufgabenstellung beschrieben.
 Das Item was schon längsten im Stack verharrt, sollte als erstes verpackt werden damit es Versandbereit ist.
 Außerdem werden hier keine Optionals mehr benötigt, da es sinnfrei ist, ein Optional.isEmpty() == true im Stack unterzubringen, man kann ja nicht etwas leeres verpacken.
+
+---
+
+## i)
+Es muss auf jeden Fall ein Set verwendet werden, da jeder Kunde natürlich nur einmal etwas bestellen kann.
+Ein HashSet ist am schnellsten, um zu ermitteln, ob ein Kunde bereits einmal etwas bestellt hat.
+Die extra-Memory eines HashSet ist minimal.
+Beim abrufen von Kunden ist eine Sortierung wahrscheinlich irrelevant.
+Falls man gelegentlich Abfragen muss, welches die Kunden sind, die zeitlich zuletzt bestellt haben, könnte man ein TreeSet in erwägung ziehen.
