@@ -2,9 +2,7 @@ package de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse;
 
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.StationeryItem;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Represents a warehouse that can hold a fixed number of items.
@@ -22,7 +20,8 @@ public final class StorageRack {
 	private int numberOfItems;
 
 	private List<Optional<StationeryItem>> storage;  // TODO final or not?
-	// TODO: Add data structures for exercises part (c) here.
+	private Map<Identifier, Integer> identifierToStorageIndex;
+
 
 	/**
 	 * Creates a new storage rack with the given capacity.
@@ -47,38 +46,49 @@ public final class StorageRack {
 			storage.add(Optional.empty());
 		}
 
-		// TODO initialize data structures for exercises part  (c) here.
+		identifierToStorageIndex = new HashMap<>(capacity);
 	}
 
 	// TODO add documentation here.
-	public void addItem(final StationeryItem stationeryItem) {
+	public void addItem(final StationeryItem stationeryItem) throws OutOfStorageException {
 		for (int i = 0; i < this.capacity; i++) {
 			if (this.storage.get(i).isEmpty()) {
 				this.storage.set(i, Optional.of(stationeryItem));
+
+				this.identifierToStorageIndex.put(stationeryItem.getIdentifier(), i);
+				numberOfItems++;
+
+				break; // TODO überlegen ob der break hier Stilok ist weil er macht absolut Sinn an der Stelle
 			}
 		}
-
-		// TODO implement exercises part (d) here.
 	}
 
 	// TODO add documentation here.
 	public void removeItem(final int compartmentNumber) {
-		this.storage.set(compartmentNumber, Optional.empty());
+		if (this.storage.get(compartmentNumber).isPresent()) {
+			StationeryItem itemToRemove = this.storage.get(compartmentNumber).get();
+			this.identifierToStorageIndex.remove(itemToRemove.getIdentifier());
 
-		// TODO implement exercises part (d) here.
+			numberOfItems--;
+		}
+
+		this.storage.set(compartmentNumber, Optional.empty());
 	}
 
 	// TODO add documentation here.
 	public Optional<StationeryItem> getItem(final int compartmentNumber) {
-		// TODO implement exercise part (b) here
-		return this.storage.get(compartmentNumber);
-		// TODO find a way to create a copy instead of returning the item itself.
+		Optional<StationeryItem> resItem = this.storage.get(compartmentNumber);
+		this.removeItem(compartmentNumber);
+		return resItem;
 	}
 
 	// TODO add documentation here.
 	public Optional<Integer> getCompartmentNumberOf(final Identifier identifier) {
-		// TODO implement exercise part (d) here.
-		return Optional.empty(); // TODO delete this line if necessary.
+		if (this.identifierToStorageIndex.containsKey(identifier)) {
+			return Optional.of(this.identifierToStorageIndex.get(identifier));
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	/**

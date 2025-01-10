@@ -124,4 +124,14 @@ classDiagram
 ## a)
 Eine geeignete Datenstruktur wäre ``Collections.ArrayList``, da die Regalfächer eine feste größe haben werden, also man nicht den Nachteil haben wird, dass sich größen von Arrays schlecht ändern lassen, und da man ArrayLists sehr schnell an einem bestimmten Index i abrufen kann, ohne vorher über die gesamte Liste zu iterieren wie bei einer LinkedList. Außerdem werden alle Daten im Array den Uniformen Typ (bzw. Elterntyp) ``StorageRack`` haben.
 
+---
 
+## b)
+Am sinnvollsten ist es hierfür eine Map zu verwenden. Ich entscheide mich für die Hash-Map, da diese das auffinden von Objekten anhand Ihres Hash sehr schnell ermöglicht. Sollte das Lager aber enorme größen Annehmen, könnte man auch eine TreeMap in erwägung ziehen, da diese Speichereffizienter ist.
+
+---
+
+## f)
+Ein Stack macht am meisten Sinn. Er folgt dem LIFO (last-in-first-out) Prinzip so wie in der Aufgabenstellung beschrieben.
+Das Item was schon längsten im Stack verharrt, sollte als erstes verpackt werden damit es Versandbereit ist.
+Außerdem werden hier keine Optionals mehr benötigt, da es sinnfrei ist, ein Optional.isEmpty() == true im Stack unterzubringen, man kann ja nicht etwas leeres verpacken.

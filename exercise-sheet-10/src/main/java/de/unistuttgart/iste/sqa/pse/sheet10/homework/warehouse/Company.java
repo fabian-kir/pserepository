@@ -23,13 +23,17 @@ public final class Company {
 	// TODO add documentation here.
 	public Company() {
 		orderBuffer = new Buffer();
-		// TODO: implement exercises part (e) and (i) here.
-		itemStorageRack = null; // TODO delete this line if necessary
+		// TODO: implement exercises part (i) here.
+		itemStorageRack = new StorageRack(75); // TODO delete this line if necessary
 	}
 
 	// TODO add documentation here.
 	public void storeInStorageRack(final StationeryItem stationeryItem) {
-		// TODO: implement exercise part (e) here.
+		try {
+			itemStorageRack.addItem(stationeryItem);
+		} catch (OutOfStorageException e) {
+			System.out.format("Ignoring item: %s because the storage is full.", stationeryItem);
+		}
 	}
 
 	// TODO add documentation here.
