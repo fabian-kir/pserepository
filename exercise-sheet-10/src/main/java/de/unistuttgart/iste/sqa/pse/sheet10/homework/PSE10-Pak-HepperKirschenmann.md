@@ -83,3 +83,45 @@ obwohl der Programmierer eigentlich versucht hat dies durch eine defensive Über
 
 ---
 
+# Aufgabe 2
+
+### Anmerkung (nur zur Hilfe):
+```mermaid
+classDiagram
+    class Company {
+        
+    }
+    
+    class StationaryItem {
+        
+    }
+    
+    class StorageRack {
+        
+    }
+    
+    class Pen {
+        
+    }
+    
+    class Ruler {
+        
+    }
+    
+    class Compass {
+        
+    }
+    
+    StationaryItem <|-- Ruler
+    StationaryItem <|-- Pen
+    StationaryItem <|-- Compass
+    
+    
+```
+
+---
+
+## a)
+Eine geeignete Datenstruktur wäre ``Collections.ArrayList``, da die Regalfächer eine feste größe haben werden, also man nicht den Nachteil haben wird, dass sich größen von Arrays schlecht ändern lassen, und da man ArrayLists sehr schnell an einem bestimmten Index i abrufen kann, ohne vorher über die gesamte Liste zu iterieren wie bei einer LinkedList. Außerdem werden alle Daten im Array den Uniformen Typ (bzw. Elterntyp) ``StorageRack`` haben.
+
+

@@ -1,6 +1,9 @@
 package de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse;
 
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.StationeryItem;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,7 +20,9 @@ public final class StorageRack {
 
 	private final int capacity;
 	private int numberOfItems;
-	// TODO: Add data structures for exercises part (a) and (c) here.
+
+	private List<Optional<StationeryItem>> storage;  // TODO final or not?
+	// TODO: Add data structures for exercises part (c) here.
 
 	/**
 	 * Creates a new storage rack with the given capacity.
@@ -36,23 +41,38 @@ public final class StorageRack {
 		}
 		this.capacity = capacity;
 		numberOfItems = 0;
-		// TODO initialize data structures for exercises part (a) and (c) here.
+
+		storage = new ArrayList<>(capacity);
+		for(int i = 0; i < capacity; i++) {
+			storage.add(Optional.empty());
+		}
+
+		// TODO initialize data structures for exercises part  (c) here.
 	}
 
 	// TODO add documentation here.
 	public void addItem(final StationeryItem stationeryItem) {
-		// TODO implement exercises part (b) and (d) here.
+		for (int i = 0; i < this.capacity; i++) {
+			if (this.storage.get(i).isEmpty()) {
+				this.storage.set(i, Optional.of(stationeryItem));
+			}
+		}
+
+		// TODO implement exercises part (d) here.
 	}
 
 	// TODO add documentation here.
 	public void removeItem(final int compartmentNumber) {
-		// TODO implement exercises part (b) and (d) here.
+		this.storage.set(compartmentNumber, Optional.empty());
+
+		// TODO implement exercises part (d) here.
 	}
 
 	// TODO add documentation here.
 	public Optional<StationeryItem> getItem(final int compartmentNumber) {
-		// TODO implement exercise part (b) here.
-		return Optional.empty(); // TODO delete this line if necessary.
+		// TODO implement exercise part (b) here
+		return this.storage.get(compartmentNumber);
+		// TODO find a way to create a copy instead of returning the item itself.
 	}
 
 	// TODO add documentation here.
