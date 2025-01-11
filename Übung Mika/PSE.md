@@ -291,4 +291,22 @@ Also wird implements anstatt extends benutzt:
 
 
 # Vorlesung 16 & 17 Collection-Datenstrukturen
-test
+## Collection/Container
+Ist ein Objekt, dass andere Objekte in einem einzelnen Objekt gruppiert.
+Collections werden zum Speichern, Abfragen, Manipulieren und Übertragen von aggregierten Daten benutzt.
+Operationen: 
+1. Insertion: Hinzufügen eines Elements
+2. Removal: Entfernen eines Vorkommens eines Elements, falls vorhanden
+3. Wipeout: Entfernen aller Vorkommen eines Elements
+4. Search: Ermitteln, ob ein bestimmtes Element vorhanden ist
+5. Iteration: anwenden einer bestimmten Operation auf jedes Element
+
+---
+## Collections-Framework 
+Ist eie Bibliothek für eine einheitliche Herangehensweise, um Collections darzustellen und zu manipulieren.
+- Schnittstellen: Abstrakte Datentypen in einer Vererbungshierarchie für verschiedene Arten von Collections
+- Realisierungen: Wiederverwendbare Klassen, die die abstrakten Schnittstellen implementieren
+- Algorithmen: Wiederverwendbare, polymorphe Operationen (z.B Sortieren oder Suchen), die auf den abstrakten Collection-Schnittstellen arbeiten.
+
+  <img alt="img_5.png" height="150" src="img_5.png" width="200"/> 
+  
