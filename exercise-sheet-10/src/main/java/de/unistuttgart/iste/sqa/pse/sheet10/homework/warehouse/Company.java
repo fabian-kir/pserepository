@@ -13,23 +13,35 @@ import java.util.Set;
  *
  * A company stores items and processes orders.
  *
- * @author your name
+ * @author Mika Hepper, Fabian Kirschenmann
  */
 public final class Company {
 
 	private final StorageRack itemStorageRack;
 	private final Buffer orderBuffer;
 	private Set<Customer> customers;
-	// TODO: Add data structure for exercise part (i) here.
 
-	// TODO add documentation here.
+	/**
+	 * initilizes the orderBuffer und itemStorageRack.
+	 * The storage has a capacity of 75 items.
+	 *
+	 * @ensures object to be correctly initialzied
+	 */
 	public Company() {
 		orderBuffer = new Buffer();
-		// TODO: implement exercises part (i) here.
-		itemStorageRack = new StorageRack(75); // TODO delete this line if necessary
+		itemStorageRack = new StorageRack(75);
 	}
 
-	// TODO add documentation here.
+	/**
+	 * takes an Item stationaryItem and stores it in the storage rack.
+	 *
+	 * @requires there needs to be at least one empty place in storage (otherwise the item will be ignored)
+	 * 				... in the real world this should throw an Exception
+	 *
+	 * @param stationeryItem The item to be stored.
+	 *
+	 * @ensures The item will be stored in the storageRack.
+	 */
 	public void storeInStorageRack(final StationeryItem stationeryItem) {
 		try {
 			itemStorageRack.addItem(stationeryItem);
@@ -38,7 +50,19 @@ public final class Company {
 		}
 	}
 
-	// TODO add documentation here.
+	/**
+	 * Takes on order with the .Identfier given by identfier out of the storageRack and
+	 * puts it on top the LIFO stack that will be processed for packaging.
+	 * Will also call handleCustomerMarketing for further actions to the customer, if the item was found in itemStorageRack
+	 *
+	 * @requires There needs to be an item with the .Identifier that is given by identfier in the storage rack.
+	 * 				(otherwise will be ignored, but should rather throw an Exception)
+	 *
+	 * @ensures The item will be removd from itemStorageRack and put ontop of orderBuffer
+	 *
+	 * @param identifier the id by which the item can be uniquily found in storageRack
+	 * @param customer the customer that has ordered
+	 */
 	public void processIncomingOrder(final Identifier identifier, final Customer customer) {
 		Optional<StationeryItem> orderedItem = this.itemStorageRack.getItemFromIdentifier(identifier);
 		if (orderedItem.isPresent()) {
@@ -50,6 +74,15 @@ public final class Company {
 		}
 	}
 
+	/**
+	 * If the customer is a fist time customer, he/her will be added to the customer list
+	 * customers and will receive a gift created by getBonusItem()
+	 *
+	 * @ensures customer receives a bonus item if he/her's a first-time customer
+	 * @ensures customer will be added to customers-set.
+	 *
+	 * @param customer
+	 */
 	public void handleCustomerMarketing(Customer customer) {
 		if (!this.customers.contains(customer)) {
 			this.customers.add(customer);
