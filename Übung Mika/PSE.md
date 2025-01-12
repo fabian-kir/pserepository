@@ -291,4 +291,399 @@ Also wird implements anstatt extends benutzt:
 
 
 # Vorlesung 16 & 17 Collection-Datenstrukturen
-test
+## Collection/Container
+Ein Objekt, dass andere Objekte in einem einzelnen Objekt gruppiert. (wird zum speichern, abfragen, munipulieren und übertragen von aggregierten Daten benutzt)
+- Insertion: hinzufügen eines Elements
+- Removal: Entfernen eines Vorkommens eines Elements, falls vorhanden
+- Wipeout: Entfernen alles Vorkommen eines Elements
+- Search: Ermitteln, ob eib bestimmtes Element vorhanden ist
+- Iteration: Andwenden einer bestimmten Operation auf jedes Element
+
+## Collection Framework
+Bibliothek für eine einheitliche Herangehensweise, um Collections darzustellen und zu manipulieren
+- Schnittstellen: Abstrakte Datentypen in einer Vererbungshierarchie für verschiedene arten von Collections, z.B. Vererbungshierarchien
+- Realisierungen: Wiederverwendbare Klassen, die die abstrakten schnittstellen implementieren, konkrete Objekte die man instanziieren muss
+- Algorithmen: Wiederverwendbare, polymorphe Operationen (z.B. Sortieren oder Suchen), die auf den abstrakten Collection-Schnittstellen arbeiten
+
+```java
+public class GenericsTest {
+    public static void main(String[] args) {
+        Tupel<String, Integer> t = new Tupel<>("foo", 1); //Konkretes Tupel-Objekt, das ein String und Integer speichern kann
+        // Wichtig: Tupel<String, int> nicht erlaubt, da int ein primitiv ist(keine primitive erlaubt)
+        System.out.println(t);
+    }
+}
+class Tupel<K, V> { //Deklaration von Typparametern
+    private final K k; //Tupel-Klasse für (2) Objekte von offenen (parametrisierbarem) Typ
+    private final V v;
+    public Tupel(final K key, final V value) {
+        k = key;
+        v = value;
+    }
+    
+    public String toString() {
+        return String.format("KEY: %s, Value: %s,", k, v);
+    }
+}
+```
+Mit Collections umgehen:
+- add(E e) (Kommando)
+- clear() (Kommando)
+- contains (Object o) (Abfrage)
+- isEmpty() (Abfrage)
+- remove (Object o) (Kommando)
+- size() (Abfrage)
+
+Beispielbenutzung eine Collection
+
+```java
+import java.util.LinkedList;
+
+class ExampleLinkedlist extends SimpleHamsterGame {
+  void run() {
+    Collection<Hamster> hamsters = new LinkedList<Hamster>();
+    hamsters.add(paule); //paule zu der Liste hinzufügen
+    hamsters.add(new Hamster()); //neuen Hamster hinzufügen
+    //for-each (Iterieren), Typ-sicher also nimmt es immer nur Hamster (keine überprüfung nötig)
+    for(final Hamster hamster : hamsters) { //jeden Hamster durchlaufen(bis hamsters, in dem fall also 2) und jedesmal den Hamster die Aktion ausführen lassen (in dem Fall move)
+        hamster.move();
+    }
+  }
+}
+```
+
+## Java Collections Framework Übersicht
+1. Collection-Schnittstellen 
+  - List<E>, geordnete Collection
+  - [Sorted]Set<E>, (sortierte) Collection ohne doppelte Elemente
+  - Queue<E>, sortierte Collection mit FIFO-Zugriff(First in First Out, das erste Elemente was reinkommt, kommt auch als erste wieder beim abrufen heraus)
+  - Map<K, V>, Collection mit Schlüssel/Wert-Zugriff (eigentlich keine Sammlung)
+2. Unterstützende Schnittstellen
+  - Iterator<E> und Iterable<E>, erlauben, durch Collections zu iterieren
+
+Hierarchie (oben am abstraktesten)
+- <<interface>> Iterable (Schnittstellen)
+- <<interface>> Collection und Map (Schnittstellen)
+- List, Set, Queue, SortedSet, Deque (Schnittstellen)
+- ArrayList, LinkedList, SortedList, HashSet, PriorityQueue, HashMap, ... (Implementierungen)
+
+## Iteratoren
+Interface Iterator<E> (generisch),
+Drei Operationen (Abfragen)
+  - boolean hasNext()
+  - E next()
+  - void remove()
+
+Aufzählung der Elemente einer Collection,
+Jede Collection hat eine Operation iterator(),
+welche ein Iterator-Objekt zurückgibt (ein Objekt einer Klasse, die Iterator implementiert)
+
+Jede Collection erweitert die Schnittstelle Iterable: 
+```java
+public interface Collection<E> extends Iterable<E> {} //Iterable deklariert die Operation Iterator<T> iterator()
+```
+OFT: während dem Iterieren darf oft nicht die Collection verändert werden (aufpassen ob die Menge also immutable ist, wenn nicht darf nicht parallel die Sammlung verändert werden, oder eine Kopie erstellen und über diese Iterieren)
+
+Foreach loop: for (final Integer i : coll) {...}
+
+## Listen
+Sammlung, bei der Duplikate erlaubt sind, jedoch eine ordnung herscht
+
+```java
+import java.util.Collection;
+
+public interface List<E> extends Collection<E> {
+  list.add(int index, E element); //Fügt das angegebene Element an der angegebenen Position in die Liste ein (void)
+}
+public class LinkedList<E> {} //einzelne Elemente werden in einer Kette von "Containern" gehalten, Vorteil ist sehr günstig, suchen aber teuer
+public class ArrayList<E> {} //Wahlfrei ansteuerbar, suche billig, einfügen teuer
+public class SortedList<E> {} //Sorgt dafür dass die Ordnung nicht aufgrund eines Zahl Indexes basiert, sondern auf Basis eines Vergleichsobjekts (dient dafür zwei Objekte miteinander zu vergleichen), einfügen teuer(wo muss das Element hin?), abfragen einfach(+bei jeder EinfügeOperation wird etwas an Kosten schon direkt durch Vergleichoperator abbezahlt)
+```
+Beispielnutzung:
+```java
+List<String> list1 = new ArrayList<String>();
+list1.add("Eva");
+list1.add(0, "Charisma");
+
+List<String> list2 = Arrays.asList("Tina", "Wilhelm");
+list1.addAll(3, list2);
+list1.add("XXX");
+list1.set(5, "Eva");
+
+System.out.println(list1); //[Charisma, Eva, Pallas, Tina, Umbruch Wilhelm, Eva]
+System.out.println(list1.size()); //6
+```
+## Sets
+Keine Duplikate und keine Ordnung
+```java
+public interface Set<E> extends Collection<E> {
+    set.add(E e); //Fügt das angegebene Element zu der Menge hinzu, wenn es nicht bereits vorhanden ist (boolean)
+}
+public class TreeSet<E> {} //Wird Intern als ein "Baum" dargestellt (Gewisse Ordnung ist voraussetzung, keine Duplikate existieren)
+public class HashSet<E> {} //Jedes Element wird "durchnummeriert" und Elemente mit gleicher Zahl werden auf Duplikate geprüft
+```
+Beispielnutzung:
+```java
+import java.util.HashSet;
+
+Set<Point> set = new HashSet<Point>();
+Point p1 = new Point(); //Voraussetzung dafür ist Implementierung von equals(...) und hashCode() (wird durch IDE generiert)
+Point p2 = new Point();
+
+println(set.add(p1)); //true
+println(set.add(p1)); //false, wir würden erwarten eine Exception zu bekommen, jedoch false (Operation hat nicht funktioniert)
+println(set.add(p2)); //true
+println(set.contains(p1)); //true
+println(set.contains(p1)); //true
+```
+## Dispensers
+- Last In First Out(LIFO): Wähle das zuletzt eingefügte Element aus (stack)
+- FIFO: Wähle das älteste Element, das noch nicht entfernt wurde (queue)
+- Priority queue: Wähle das Element mit der höchsten Priorität aus
+
+Stacks Operationen:
+  - Push: Ein Element nach oben legen
+  - Pop: Das obere Element nehmen
+  - Peek: Durchsuchen des oberen Elements (ohne Entnehmen)
+
+Beispielnutzung:
+```java
+public class Test { 
+    Stack<Integer> grainTrace = new Stack<Integer>();
+    grainTrace.push(5);
+    grainTrace.push(4);
+
+    while(!grainTrace.empty())
+
+        {
+            final int count = grainTrace.pop();
+            System.out.println(count);
+        }
+    //Output: 4, 5
+}
+```
+Queue Operationen:
+  - boolean offer(E e): Element an das Ende anhängen
+  - E poll(): Entfernen des ersten Elements aus der Warteschlange
+  - E peek(): Rückgabe (ohne Entfernen) des ersten Elements
+
+## Maps(Dictionary)
+```java
+public interface Map <K, V> {} // K=Schlüsseltyp, muss Immutable sein; V=Wertetyp
+//Objekt, dass Schlüssel zu seinen Werten Mapped, keine Duplikate und jeder Schlüssel kann zu mind. einem Wert gemapped sein
+V put(K key, V value);
+V get(Object kex);
+public class TreeMap<E>{}
+public class HashMap<K,V>{}
+```
+Beispiel:
+```java
+final Map<Integer, String> map = new TreeMap<Integer, String>(); //Elemente müssen eine Reihenfolge haben
+map.put(2, "Two");
+map.put(4, "Four");
+System.out.println(map.get(4)); //Four
+
+final Map<Point, String> map = new HashMap<Point,String>();
+final Point p1 = new Point(10, 20);
+map.put(p1, "Point p1");
+final Point p2 = new point(10, 20);
+System.out.println(map.get(p2)); //"Point p1", da Werte von p2=p1="Point p1"
+```
+
+## Arrays
+Behälter, der Elemente in einer Reihe speichert, die jeweils durch einen ganzzahligen Index identifiziert werden (vergleichbar mit Liste)
+Benutzen wir, wenn wir ganz viel Performance benötigen
+```java
+//Deklarieren:
+int[] a; //Array
+float [] b; //Array
+//Erstellen des Arrays im Heap 
+a = new int [5]; //der größe 5. a ist die Referenz auf das Array
+b = new float [10];
+// Zugriff auf ein Element eines Arrays (Index Ganzzahlig)
+a[3] = 0; //Wert zuweisen
+System.out.println(a[3]); // "0"
+a[2*i+1] = a[i]*3;
+int len = a.size(); //länge von a = 5
+//Foreach für Arrays
+for (int i = 0; i < arr.length; i++) {
+    // arr[i];
+        }
+for (final Typ val : arr) {
+    //use val
+        }
+```
+## Zusammenfassung
+
+<img alt="img_5.png" height="150" src="img_5.png" width="200"/>
+
+---
+
+# VL 18 Clean Code
+## Wartung
+````
+Der Prozess der Modifikation eines Softwaresystems oder eine Komponente nach der Auslieferung, um Fehler zu beheben,
+die Leistung oder andere Attribute zu verbessern oder sich an eine veränderte Umgebung anzupassen.
+````
+Instandsetzung (20%), Adaptive Wartung (20%), Perfektionierende Wartung (60%).
+
+## Warum Clean Code?
+1. Verständlichkeit: Code wird in erster Linie von Menschen geschrieben, um von Menschen gelesen zu werden, in zweiter Linie für den Compiler
+2. Leser != Schreiber: Programmierer verlassen Teams, haben andere Projekte, Aufgaben, etc.
+--> Code sollte einfach und verständlich sein, muss also kontinuierlich gepflegt und verbessert werden.
+3. Softwareerosion (durch abnehmendes Verständnis, schwierige Wartbarkeit, steigende Fehlerraten, Leistungsabfall, ...)
+4. Probleme entstehen im kleinen und verursachen Probleme im großen
+
+## Bedeutungsvolle Namen
+```java
+int d; //elapsed time in days
+// clean Code:
+int elapsedTimeInDays;
+```
+Nenne Variablen so, dass sie zum Kontext passen und Verständlichkeit übermitteln,
+bedeutung haben, Kodierung vermeiden, bei for-schleifen keine "a" oder "b", sondern "i" oder "j" benutzen als namen.
+Methoden sollten verben als Namen haben,
+Ein Wort pro Konzept.
+
+Code Verbessern:
+
+<img alt="img_6.png" height="100" src="img_6.png" width="300"/>
+
+```java
+class SpaceShip {
+    private final Engine Engine;
+    private final Navigator navigator;
+    private final boolean turboEnabled;
+    
+    final void navigateTo(final Planet destination) {
+        final Route route = navigator.calculateRouteTo(destination);
+        Logger.log(route);
+        engine.follow(route, turboEnabled);
+    }
+}
+```
+
+## Funktionen (Operationen)
+- Funktionen sollten klein sein: unter 150 Zeichen pro Zeile, unter 20 Zeilen
+- Funktionen sollten eine Sache tun und diese gut, keine andere.
+- Verschiedene Abstractions-level: mit dem höchsten Anfangen z.B.: getHtml(), dann mittlere z.B.: einzelne Seiten darstellen und dann untere z.B.: Zeichen ändern in dieser Seite
+- Bei Switch-Case: (oft Ausschlagung von Vererbung), also ohne Switch-Case, sondern mit OOP(z.B. abstrakte EmployeeType Klasse mit UnterKlassen von Salesman, Manager... anstatt mit Switch-Case zwischen diesen zu Unterscheiden)
+- Funktionen sollten keine Argumente haben (oder max. 1)
+- Funktion sollte dynamische Form haben (Eingabe sinnvoll in Ausgabe formieren, sodass return Typ Ausgabe Typ entspricht)
+- Flag Argumente vermeiden (wenn man in die Doku schauen müsste, um herauszufinden was z.B. true oder false bedeutet): Besser zwei Funktionen daraus machen, mit passenden Bezeichnern
+- Funktionen mit mehreren Parametern vermeiden, soweit sinnvoll (z.B. bei Koordinaten mache zwei Parameter Sinn)(vermeiden wenn geht, da man sonst of in die Doku schauen muss um herauszufinden wo was steht)
+Argument Objekte um mehrere Parameter zu vermeiden (z.B. Point center anstatt double x, double y)
+- Operationen sollten keine Nebenwirkungen haben
+- Keine Duplikate! Strukturiertes Programmieren (keine returns mitten in der Funktion oder so lol)
+
+## Kommentare
+- Code so schreiben, dass er ohne Kommentare lesbar ist!
+Gut: 
+  - Informative Kommentare
+  - Legal Kommentare
+  - Kontext Kommentare
+  - Clarification Kommentare //a<b (...==-1)
+  - Warnungen von Fehlern oder Konsequenzen //.. is not thread Safe
+  - TODO Kommentare, mit beschreibung
+  - Amplifikation (wichtige teile markieren)
+nicht Gut:
+  - Kommentare anstatt Exception zu werfen (User hat kein Feedback)
+  - Redundante Kommentare
+  - Unnötige @param Kommentare, die nichts neues Aussagen
+  - Journal Kommentare
+  - "Noise" Kommentare (triviale)
+  - "Scary Noise" //The name (private String name;)
+  - Kommentar schreiben, wenn man eine Funktion/Variable benutzen könnte
+  - Block enden explizit kommentieren lol
+  - //hinzugefügt von Mika
+  - Code auskommentieren
+  - HTML Kommentare
+  - Nicht Lokale Informationen in Kommentaren
+  - zu viele Informationen
+
+## Formatierung
+Ziel: Kommunikation mit dem Leser, lesbar wie eine Zeitung, Vertikale und Horizontale Formatierung(Dichte), 
+kein Brechen oder Einrücken, Team Regeln für Formatierung befolgen
+
+## Objekte und Datenstrukturen
+Saubere getter, Schreibgeschütz coden, Schnittstellen(interfaces) mit möglichst wenig internen Daten schreiben.
+
+//final String test = test.aufruf.aufruf.(...); nicht gut, da unverständig. Lieber mehrere zwischenergebnisse abspeichern
+
+## Fehlerbehandlung
+Exceptions benutzen anstatt Fehlercodes. bei Code, der potenziell schiefgehen kann, wird logik mit fehlerbehandlung gemischt → aufspalten mit try catch z.B.
+
+Nicht Null zurückgeben oder übergeben
+
+---
+
+# VL 19 Modellierung (UML)
+## UML2 Grundlagen
+Warum brauchen wir Modellierung?
+- Bisher nur Miniprogramme (<1000 Zeilen Code), leicht zu verstehen und geringer Aufwand
+- Echte Systeme haben bis zu 100. Millionen Zeilen Code, komplex, unklar ...
+- Modelle nehmen ein Teil der komplexität ab
+
+````
+Modellierung
+Die Erstellung von Artefakten zur Beschreibung von Softwaresytemen (oder Teilen)
+````
+Artefakte: Alle Arten von produzierten Teilen, die in der Software verwendet werden oder zum Verständnis
+oder der Wartung der Software beitragen (Code, Anforderungen, Modelle, etc.)
+
+Dokumente: Artefakte, die von Menschen gelesen und bearbeitet werden sollen
+
+````
+Modell
+Ein Modell ist ein zielorientierte Abbildung eines Systems, das die Realität vereinfacht,
+indem es zu problemrelevanten Aspekten abstrahiert. 
+Es ermöglicht ähnliche Beobachtungen und Aussagen wie das modellierte System
+````
+Wir wollen also z.B.: besseres Verständnis des Systems erreichen → vereinfachen durch abstraktion (nur gültig,
+wenn Aussagen im Modell auch in Realität übereinstimmen)
+
+Dokumente können in Texten, visuellen- oder hybriden Sprachen erstellt werden, 
+wobei diese Sprachen informell(natürliche Sprache), semi-formal(Formulare) oder formal(Programmiersprachen/mathematische Semantik) sein können. 
+````
+UML (= Unified Modeling Language) ist der Standard der OMG (= Object Management Group) zum Modellieren von OOSoftware.
+Ist Hybrid (visuell und textuell) und semi-formal
+````
+
+<img alt="img_7.png" height="200" src="img_7.png" width="400"/>
+
+- Strukturen: Klassen, Objekte, Packete, Verteilung (wie Software auf Hardware verteilt wird)
+- Verhalten: Was macht die Software?
+- Interaktionsdiagramme: Verknüpfung einzelner Bauteile zwischeneinander
+
+## Modellierung von Objekten und Beziehungen
+**Objektdiagramme**:
+
+<img alt="img_8.png" height="100" src="img_8.png" width="400"/>
+
+Wdh.: 
+- Ein Objekt(Entität) ist eine Entität unserer Realität oder Vorstellungskraft, die von allen anderen Entitäten unterschieden werden kann.
+- Eine Beziehung(Link) its eine _identifizierbare Verbindung_ zwischen (mind.) zwei Objekten
+- Ein Attribut charakterisiert eine _Eigenschaft_ und besteht aus
+  - einem Attributnamen (**property name**)
+  - einem Attributwert (**property value**)
+- Ein Objekt hat eine Identität, Objekte müssen anhand ihrer Attributwerte unterscheidbar sein.
+  - Objektgleichheit (dasselbe)
+  - Wertegleichheit (das gleiche)
+
+**Klassendiagramme**
+Klassifizierung: Objekte der gleichen Art werden zu **Klassen** und **Beziehungen** der gleichen Art zu **Assoziationen**
+
+![img_9.png](img_9.png)
+
+Besondere Assoziationen: 
+  - Aggregation
+  - Komposition
+````
+Aggregation ist eine Zusammensetzung von objekten (Komponenten) zu einem zusammengesetzten Objekt.
+(Tisch <>- Beine) und (Tisch <>- Brett) (mit leerer Diamant gezeichnet)
+````
+````
+Komposition ist eine spezielle Aggregation, bei der die Existenz der Teile von der Existenz des Ganzen Abhängt
+(House <>- Floor <>- Room) Room ex. nur wenn Floor existier und Floor ex. nur wenn House ex. (mit einem ausgefülltem Diamanten gezeichnet)
+````
+
