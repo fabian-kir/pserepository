@@ -7,29 +7,41 @@ import java.util.Queue;
 
 /**
  * Represents a buffer for temporary storage of items.
+ * First item to go in is the first item to go out.
  *
- * @author your name
+ * @author Hepper, Kirschenmann
  */
 public final class Buffer {
 
 	Queue<StationeryItem> bufferedItems;
 
-	// TODO add documentation here
 	public Buffer() {
-		bufferedItems = new LinkedList<>();
+		this.bufferedItems = new LinkedList<>();
 	}
 
-	// TODO add documentation here
+	/**
+	 * Adds the item of type StationaryItem to buffer to the Queue.
+	 *
+	 * @param stationeryItem the item to add to the Buffer
+	 */
 	public void bufferItem(final StationeryItem stationeryItem) {
 		this.bufferedItems.offer(stationeryItem);
 	}
 
-	// TODO add documentation here
+	/**
+	 * Takes the oldest item in the queue and returns it.
+	 *
+	 * @requires there must be at least one buffered item <-> isEmpty() == false
+	 *
+	 * @return The next item in the buffer.
+	 */
 	public StationeryItem releaseItem() {
 		return this.bufferedItems.poll();
 	}
 
-	// TODO add documentation here
+	/**
+	 * @return true if there's no other item buffered, else false.
+	 */
 	public /*@ pure @*/ boolean isEmpty() {
 		return this.bufferedItems.isEmpty();
 	}
