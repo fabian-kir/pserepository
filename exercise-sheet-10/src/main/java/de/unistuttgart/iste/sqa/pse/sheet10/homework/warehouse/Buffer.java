@@ -2,7 +2,8 @@ package de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse;
 
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.StationeryItem;
 
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Represents a buffer for temporary storage of items.
@@ -11,21 +12,21 @@ import java.util.Stack;
  */
 public final class Buffer {
 
-	Stack<StationeryItem> bufferedItems;
+	Queue<StationeryItem> bufferedItems;
 
 	// TODO add documentation here
 	public Buffer() {
-		bufferedItems = new Stack<>();
+		bufferedItems = new LinkedList<>();
 	}
 
 	// TODO add documentation here
 	public void bufferItem(final StationeryItem stationeryItem) {
-		this.bufferedItems.push(stationeryItem);
+		this.bufferedItems.offer(stationeryItem);
 	}
 
 	// TODO add documentation here
 	public StationeryItem releaseItem() {
-		return this.bufferedItems.pop();
+		return this.bufferedItems.poll();
 	}
 
 	// TODO add documentation here
