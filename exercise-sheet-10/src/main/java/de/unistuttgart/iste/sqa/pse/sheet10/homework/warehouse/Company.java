@@ -4,6 +4,8 @@ import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.Compass;
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.Pen;
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.Ruler;
 import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.StationeryItem;
+
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -19,7 +21,7 @@ public final class Company {
 
 	private final StorageRack itemStorageRack;
 	private final Buffer orderBuffer;
-	private Set<Customer> customers;
+	private final Set<Customer> customers;
 
 	/**
 	 * initilizes the orderBuffer und itemStorageRack.
@@ -30,6 +32,7 @@ public final class Company {
 	public Company() {
 		orderBuffer = new Buffer();
 		itemStorageRack = new StorageRack(75);
+		customers = new HashSet<>();
 	}
 
 	/**

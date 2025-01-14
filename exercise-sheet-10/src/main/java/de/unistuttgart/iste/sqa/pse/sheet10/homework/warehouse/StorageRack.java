@@ -58,7 +58,7 @@ public final class StorageRack {
 				this.identifierToStorageIndex.put(stationeryItem.getIdentifier(), i);
 				numberOfItems++;
 
-				break; // TODO überlegen ob der break hier Stilok ist weil er macht absolut Sinn an der Stelle
+				break; // TODO überlegen ob der break hier Stil ok ist weil er macht absolut Sinn an der Stelle
 			}
 		}
 	}
