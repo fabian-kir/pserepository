@@ -1,5 +1,8 @@
 package de.unistuttgart.iste.sqa.pse.sheet10.homework.oop;
 
+import de.hamstersimulator.objectsfirst.datatypes.Direction;
+import de.hamstersimulator.objectsfirst.datatypes.Location;
+import de.hamstersimulator.objectsfirst.external.model.Hamster;
 import de.hamstersimulator.objectsfirst.external.simple.game.SimpleHamsterGame;
 
 /**
@@ -19,5 +22,17 @@ public final class JustSomeHamsterGame extends SimpleHamsterGame {
 	}
 
 	@Override
-	protected void run() {}
+	protected void run() {
+		Hamster cheatingHamster = new CheatingHamster(this.game.getTerritory(), new Location(1, 1), Direction.EAST, 0);
+
+		cheatingHamster.move();
+		cheatingHamster.move();
+		cheatingHamster.move();
+
+		Hamster lazyHamster = new LazyHamster(this.game.getTerritory(), new Location(1, 1), Direction.EAST, 0);
+
+		lazyHamster.move();
+		lazyHamster.move();
+		lazyHamster.move();
+	}
 }
