@@ -387,7 +387,7 @@ OFT: während dem Iterieren darf oft nicht die Collection verändert werden (auf
 Foreach loop: for (final Integer i : coll) {...}
 
 ## Listen
-Sammlung, bei der Duplikate erlaubt sind, jedoch eine ordnung herscht
+Sammlung, bei der Duplikate erlaubt sind, jedoch eine ordnung herrscht
 
 ```java
 import java.util.Collection;
