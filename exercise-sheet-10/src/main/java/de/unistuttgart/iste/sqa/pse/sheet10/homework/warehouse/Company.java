@@ -61,7 +61,7 @@ public final class Company {
 	 * @requires There needs to be an item with the .Identifier that is given by identfier in the storage rack.
 	 * 				(otherwise will be ignored, but should rather throw an Exception)
 	 *
-	 * @ensures The item will be removd from itemStorageRack and put ontop of orderBuffer
+	 * @ensures The item will be removed from itemStorageRack and put ontop of orderBuffer
 	 *
 	 * @param identifier the id by which the item can be uniquily found in storageRack
 	 * @param customer the customer that has ordered

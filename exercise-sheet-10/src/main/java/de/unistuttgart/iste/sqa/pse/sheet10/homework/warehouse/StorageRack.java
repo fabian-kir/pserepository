@@ -5,34 +5,20 @@ import de.unistuttgart.iste.sqa.pse.sheet10.homework.warehouse.items.StationeryI
 import java.util.*;
 
 /**
- * Represents a warehouse that can hold a fixed number of items.
- * The number of holdable items is defined by the capacity of the storage rack.
- *
- * @author Mika Hepper, Fabian Kirschenmann
+ * Represents a warehouse StorageRack that can hold a fixed number of items.
+ * The number of holdable items is defined by the StorageRack's capacity.
  */
 public final class StorageRack {
-	// classinvariants:
-	// capacity > 0;
-	// numberOfItems >= 0;
-	// numberOfItems <= capacity;
-
 	private final int capacity;
 	private int numberOfItems;
-
-	private List<Optional<StationeryItem>> storage;  // TODO final or not?
-	private Map<Identifier, Integer> identifierToStorageIndex;
-
+	private final List<Optional<StationeryItem>> storage;
+	private final Map<Identifier, Integer> identifierToStorageIndex;
 
 	/**
-	 * Creates a new storage rack with the given capacity.
+	 * Constructs a new StorageRack with a specified capacity.
 	 *
-	 * Ensures that the new rack is empty and has the given capacity.
-	 *
-	 * TODO add missing pre- and postconditions here.
-	 *
-	 * @param capacity capacity of the storage rack. Must be > 0.
-	 *
-	 * @throws IllegalArgumentException If capacity is less than 1.
+	 * @param capacity The capacity of the storage rack, must be greater than 0.
+	 * @throws IllegalArgumentException If the capacity is less than 1.
 	 */
 	public StorageRack(final int capacity) {
 		if (capacity <= 0) {
@@ -40,77 +26,100 @@ public final class StorageRack {
 		}
 		this.capacity = capacity;
 		numberOfItems = 0;
-
 		storage = new ArrayList<>(capacity);
-		for(int i = 0; i < capacity; i++) {
+		for (int i = 0; i < capacity; i++) {
 			storage.add(Optional.empty());
 		}
 
 		identifierToStorageIndex = new HashMap<>(capacity);
 	}
 
-	// TODO add documentation here.
+	/**
+	 * Adds an item to the least index available in the storage rack.
+	 *
+	 * @param stationeryItem The item to add.
+	 * @throws OutOfStorageException If there is no available space to add the item.
+	 */
 	public void addItem(final StationeryItem stationeryItem) throws OutOfStorageException {
+		if (this.numberOfItems >= this.capacity) {
+			throw new OutOfStorageException("Storage is full.");
+		}
 		for (int i = 0; i < this.capacity; i++) {
-			if (this.storage.get(i).isEmpty()) {
-				this.storage.set(i, Optional.of(stationeryItem));
-
-				this.identifierToStorageIndex.put(stationeryItem.getIdentifier(), i);
+			if (storage.get(i).isEmpty()) {
+				storage.set(i, Optional.of(stationeryItem));
+				identifierToStorageIndex.put(stationeryItem.getIdentifier(), i);
 				numberOfItems++;
-
-				break; // TODO überlegen ob der break hier Stil ok ist weil er macht absolut Sinn an der Stelle
+				break;
 			}
 		}
 	}
 
-	// TODO add documentation here.
+	/**
+	 * Removes an item from a specific compartment.
+	 *
+	 * @param compartmentNumber The index of the compartment to remove the item from.
+	 */
 	public void removeItem(final int compartmentNumber) {
-		if (this.storage.get(compartmentNumber).isPresent()) {
-			StationeryItem itemToRemove = this.storage.get(compartmentNumber).get();
-			this.identifierToStorageIndex.remove(itemToRemove.getIdentifier());
-
+		if (compartmentNumber < 0 || compartmentNumber >= capacity) {
+			throw new IndexOutOfBoundsException("Invalid compartment number.");
+		}
+		if (storage.get(compartmentNumber).isPresent()) {
+			StationeryItem itemToRemove = storage.get(compartmentNumber).get();
+			identifierToStorageIndex.remove(itemToRemove.getIdentifier());
 			numberOfItems--;
 		}
-
-		this.storage.set(compartmentNumber, Optional.empty());
-	}
-
-	// TODO add documentation here.
-	public Optional<StationeryItem> getItem(final int compartmentNumber) {
-		Optional<StationeryItem> resItem = this.storage.get(compartmentNumber);
-		this.removeItem(compartmentNumber);
-		return resItem;
-	}
-
-	// TODO add documentation here.
-	public Optional<Integer> getCompartmentNumberOf(final Identifier identifier) {
-		if (this.identifierToStorageIndex.containsKey(identifier)) {
-			return Optional.of(this.identifierToStorageIndex.get(identifier));
-		} else {
-			return Optional.empty();
-		}
-	}
-
-	public Optional<StationeryItem> getItemFromIdentifier(Identifier identifier) {
-		int compartmentNumber = this.identifierToStorageIndex.get(identifier);
-		return this.getItem(compartmentNumber);
+		storage.set(compartmentNumber, Optional.empty());
 	}
 
 	/**
-	 * Get the capacity of this warehouse.
+	 * Retrieves and removes an item from a specific compartment.
 	 *
-	 * @return The capacity of this warehouse.
+	 * @param compartmentNumber The compartment number to retrieve the item from.
+	 * @return The item if available, otherwise returns an empty Optional.
+	 */
+	public Optional<StationeryItem> getItem(final int compartmentNumber) {
+		Optional<StationeryItem> item = storage.get(compartmentNumber);
+		removeItem(compartmentNumber);
+		return item;
+	}
+
+	/**
+	 * Gets the compartment number of an item identified by its identifier.
+	 *
+	 * @param identifier The identifier of the item.
+	 * @return The optional containing the index of the compartment where the item is stored,
+	 *         or an empty Optional if the item is not found.
+	 */
+	public Optional<Integer> getCompartmentNumberOf(final Identifier identifier) {
+		return Optional.ofNullable(identifierToStorageIndex.get(identifier));
+	}
+
+	/**
+	 * Retrieves and removes an item identified by its identifier.
+	 *
+	 * @param identifier The identifier of the item.
+	 * @return The item if it exists and is removed, otherwise returns an empty Optional.
+	 */
+	public Optional<StationeryItem> getItemFromIdentifier(Identifier identifier) {
+		return getCompartmentNumberOf(identifier)
+				.flatMap(this::getItem); // Use flatMap to handle the Optional result.
+	}
+
+	/**
+	 * Returns the capacity of the storage rack.
+	 *
+	 * @return The total capacity.
 	 */
 	public int getCapacity() {
 		return capacity;
 	}
 
 	/**
-	 * Get the number of items in this warehouse.
+	 * Returns the number of items currently in the storage rack.
 	 *
-	 * @return The number of items in this warehouse.
+	 * @return The current number of items stored.
 	 */
 	public int getNumberOfItems() {
-		return this.numberOfItems;
+		return numberOfItems;
 	}
 }
