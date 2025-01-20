@@ -18,14 +18,17 @@ classDiagram
     Building <|-- Barracks
         
     Settler --> "1..* + consumedResource" Resource : consumes >
-    Settler --> "0..* + producedresource" Resource : produces >
+    Settler --> "0..* + producedResource" Resource : produces >
     Resource --> "1 + type" ResourceType : complies with >
 
-    Miller --> "1..1 + home" Mill : livesIn >
-    Soldier --> "1..1 + home" Barracks : livesIn >
+    Settler --> "1..1 + home" Building : livesIn >
     
     Mill --> "1..1 + inhabitant" Miller : isInhabitedBy >
-    Barracks --> "1..n + inhabitant" Soldier : isInhabitedBy >
+    Barracks --> "1..n + inhabitants" Soldier : isInhabitedBy >
+    
+    Building --> "1..5 + storedResources" Resource : stores >
+    
+    Settlement --> "2..n + buildings" Building : consistsOf >
 
     class Settler{
         +name:String
@@ -66,6 +69,10 @@ classDiagram
     }
     
     class Barracks {
+        
+    }
+    
+    class Settlement {
         
     }
 ```
