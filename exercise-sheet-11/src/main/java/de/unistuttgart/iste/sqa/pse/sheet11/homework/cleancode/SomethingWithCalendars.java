@@ -23,9 +23,11 @@ public class SomethingWithCalendars {
 		if (input.indexOf("-") >= 0) {
 			// Format: Y, M, T per "-" getrennt
 			setCalendarDate(cal, input, "-");
-		} else if (input.indexOf("/") >= 0) {
+		}
+		else if (input.indexOf("/") >= 0) {
 			setCalendarDate(cal, input, "/");
-		} else if (input.indexOf(".") >= 0) {
+		}
+		else if (input.indexOf(".") >= 0) {
 			final String[] fs = input.split(".");
 			cal.set(parseInt(fs[0]), parseInt(fs[1]) - 1, parseInt(fs[2]));
 		}

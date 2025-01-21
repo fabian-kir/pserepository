@@ -12,7 +12,7 @@ public class Soldier extends Settler{
     }
 
     public void fightEnemy(Settler enemy) {
-
+        // TODO
     }
 
     public void setHome(Barracks home) {
