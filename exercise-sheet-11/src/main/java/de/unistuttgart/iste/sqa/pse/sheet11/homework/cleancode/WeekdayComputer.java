@@ -1,19 +1,27 @@
 package de.unistuttgart.iste.sqa.pse.sheet11.homework.cleancode;
 
+import java.text.DateFormatSymbols;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Optional;
-
+import java.util.Locale;
 
 public class WeekdayComputer {
     private final LocalDate date;
 
     private final static String[] datePatterns = {
             "yyyy-MM-dd",
+            "yyyy-M-d",
+            "yy-M-d",
             "yyyy/MM/dd",
+            "yyyy/M/d",
+            "yy/M/d",
             "yyyy.MM.dd",
+            "yyyy.M.d",
+            "yy.M.d",
     };
 
     public WeekdayComputer(LocalDate date) {
@@ -42,7 +50,8 @@ public class WeekdayComputer {
         }
     }
 
-    public String getWeekday() {
-        return new DateFormatSymbols().getWeekdays()[this.date.getDay()]; // TODO
+    public String getWeekdayString() {
+        DayOfWeek dayOfWeek = this.date.getDayOfWeek();
+        return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
     }
 }

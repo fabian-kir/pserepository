@@ -123,4 +123,28 @@ Deshalb ist die übergebene Liste auch falsch und dadurch kann am Ende die Kalen
 
 ---
 
-## d)
+# Aufgabe 3)
+
+```mermaid
+classDiagram
+    Bar <|.. Foo
+    Foo <|-- Quaz
+
+    class Bix{
+    
+    }
+
+    class Foo ["Foo"] {
+    
+    }   
+    <<abstract>> Foo
+
+    class Quaz {
+    
+    }
+
+    class Bar ["Bar"] {
+    
+    }
+    <<interface>> Bar
+```
