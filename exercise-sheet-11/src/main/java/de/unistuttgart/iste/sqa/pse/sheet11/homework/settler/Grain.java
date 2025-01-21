@@ -1,10 +1,14 @@
 package de.unistuttgart.iste.sqa.pse.sheet11.homework.settler;
 
 public class Grain extends Ressource{
-
-    private static final ResourceType resourceType = new ResourceType("Grain");
+    private static final ResourceType RESSOURCE_TYPE = new ResourceType("Grain");
 
     public Grain(String name, Position position) {
-        super(name, position, resourceType); // TODO überdenken ob man da jedes mal einen neuen Resource Type erstellen sollte oder ob ma ndas mit Static löst
+        super(name, position);
+    }
+
+    @Override
+    public ResourceType getRessourceType() {
+        return RESSOURCE_TYPE;
     }
 }

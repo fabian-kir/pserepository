@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class SomethingWithCalendars {
 
-	static String[] weekDays = new String[] {"Sun", "Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur"};
+	static String[] weekDays = new String[] {"Sun", "Mon", "Tues", "Wednesday", "Thurs", "Fri", "Satur"};
 
 	static void setCalendarDate(final Calendar cal, final String date, final String sep) {
 		final String[] fs = date.split(sep);
@@ -19,7 +19,9 @@ public class SomethingWithCalendars {
 		System.out.println("Enter the input for SomethingWithCalendars: (press enter to confirm)");
 		final String input = scanner.nextLine();
 		final Calendar cal = Calendar.getInstance();
+
 		if (input.indexOf("-") >= 0) {
+			// Format: Y, M, T per "-" getrennt
 			setCalendarDate(cal, input, "-");
 		} else if (input.indexOf("/") >= 0) {
 			setCalendarDate(cal, input, "/");
@@ -30,4 +32,20 @@ public class SomethingWithCalendars {
 		final int wd = cal.get(Calendar.DAY_OF_WEEK);
 		System.out.printf("%sday\n", weekDays[wd - 1]);
 	}
+}
+
+public class DoSomethingWithCalendars {
+	public static void main(final String[] args) throws NoValidPatternInInputStringException {
+		String userInput = getUserInput();
+		WeekdayComputer weekdayComputer = WeekdayComputer.fromInputString(userInput);
+		System.out.println(weekdayComputer.getWeekday());
+	}
+
+	public static String getUserInput() {
+		final Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter the input for SomethingWithCalendars: (press enter to confirm)");
+		return scanner.nextLine();
+	}
+
+
 }
