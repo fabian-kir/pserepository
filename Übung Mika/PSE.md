@@ -686,4 +686,66 @@ Aggregation ist eine Zusammensetzung von objekten (Komponenten) zu einem zusamme
 Komposition ist eine spezielle Aggregation, bei der die Existenz der Teile von der Existenz des Ganzen Abhängt
 (House <>- Floor <>- Room) Room ex. nur wenn Floor existier und Floor ex. nur wenn House ex. (mit einem ausgefülltem Diamanten gezeichnet)
 ````
+---
 
+# VL 22 Teste
+## Testen Grundlagen
+````
+Testen ist die experimentelle Überprüfung eines konkreten Softwaresystems 
+hinsichtlich seiner Quilität (funktionale und nicht funktionale)
+Die Experimente basieren auf Tesfällen
+````
+
+````
+Ein Testfall ist eine benannte Menge von Eingabedaten (und Vorbedingungen)
+zusammen mit einer Beschreibung der erwarteten Ausgabedaten (und Nachbedingungen)
+````
+- Es gibt verschiedene Ebenen des Testens (V-Modell siehe VL)
+- Testfälle werden zu Testsequenzen (Test-Suiten) zusammengefasst
+
+<img alt="img_10.png" height="200" src="img_10.png" width="300"/>
+
+### Testablauf
+- Die Testvorbereitung umfasst die Ermittlung von Testfällen
+- Die Testdurchführung umfasst die Ausführung und das Sammeln von Informationen während der Ausführung
+- Testauswertung mit Soll-Ist-Vergleich, Dokumentation der Ergebnisse und Erstellung von Teststatistiken
+- Testdokumentation umfasst den Testbericht und die Archivierung der Ergebnisse 
+
+### Ermittlung von Testfällen
+Eine Automatische Ableitung der optimalen Testsequenzen für jeden Fall ist nicht möglich
+Das Ziel ist es daher, gute Heuristiken zu finden, um leistungsfähige Test abzuleiten
+
+<img alt="img_11.png" height="250" src="img_11.png" width="250"/>
+
+## Arten von Tests
+### Black-Box
+nur aus der Spezigikation abgeleitete Testfälle (z.B. aus Vor- und Nachbedingungen)
+### White-Box (Glas-Box)
+aus dem Programmcode abgeleitete Testfälle
+
+## Black-Box
+- für jede Anforderung gibt es mind. einen Testfall
+- jedes Szenario wird mind. einmal ausgeführt
+- für jede Spezifikation werden mehrere Testfälle erstellt
+
+### Domänentest
+Beim Domänentest wird versucht, verschiedene Domänen abzudecken:
+- Eingabeabdeckung: Zerlegung des Eingabewertebereichs aufgrund von inhaltlichen oder typspezifischen Überlegungen
+- Ausgabeabdeckung: Zerlegung nach dem Bereich der Ausgabewerte
+- Funktionsabdeckung: jeder Anwendungsfall, jede Anforderung, jede Methode/Klasse/Verknüpfung
+
+beim Testen werden einige Normalfälle, möglichst viele Grenzfälle/Extremfälle und einige Fehlerfälle geprüft
+
+Bsp: Was sind Normal-/Grenz- und Fehlerfälle für das move-Kommando des Hamstersimulators
+- Normalfälle: 2 mal move, 2 schritte vorwärts
+- Grenzfälle: unendlich mal move
+- Fehlerfälle: move in eine Wand
+
+## Implementieren von automatisierten Tests
+Automatisiert über die API die Testfälle ausführen lassen, während der Laufzeit
+### kontinuierliches Testen
+Nach jeder Änderung wird getestet, ständig zwischen Programmierung und Test wechseln (bei jeder Änderung)
+
+Dafür werden Werkzeuge benötigt, um einfach Tests zu erstellen, sammeln, strukturieren, durchführen und auszuwerten
+
+-> JUnit 
