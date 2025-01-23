@@ -1,5 +1,7 @@
 package de.unistuttgart.iste.sqa.pse.sheet11.presence.collectionstreams;
 
+import java.util.List;
+
 /**
  * In this class you are supposed to train your skills in using the Java Streams
  * API and Collections. Implement the four empty operations in this class
@@ -50,24 +52,25 @@ public final class StreamsAndFilterExercise {
 	}
 
 	private static void printAllStudentNames(final StudentRecord record) {
-		// TODO: implement exercise 2 (b)
+		record.getAllStudents().stream().map(Student::getName).forEach(System.out::println);
 	}
 
 	private static void printNumberOfStudentsOlderThan(final StudentRecord record, final int olderThan) {
-		// TODO: implement exercise 2 (c)
+		long number = record.getAllStudents().stream().filter(student -> student.getAge() > olderThan).count();
+		System.out.println(number);
 	}
 
 	private static void printStudentNamesOlderThan(final StudentRecord record, final int olderThan) {
-		// TODO: implement exercise 2 (d)
+		record.getAllStudents().stream().filter(student -> student.getAge() > olderThan).map(Student::getName).forEach(System.out::println);
 	}
 
 	private static void printStudentNamesOlderThanAndFailedExam(
 			final StudentRecord record, final int olderThan, final String exam) {
-		// TODO: implement exercise 2 (e)
+		record.getAllStudents().stream().filter(student -> (student.getAge() > olderThan)&&(student.getExam(exam).getMark() > 4.0)).map(Student::getName).forEach(System.out::println);
 	}
 
 	private static void printAllStudentNamesChallenge(final StudentRecord record) {
-		// TODO: implement exercise 2 (f)
+
 	}
 
 	private static void printNumberOfStudentsOlderThanChallenge(final StudentRecord record, final int olderThan) {

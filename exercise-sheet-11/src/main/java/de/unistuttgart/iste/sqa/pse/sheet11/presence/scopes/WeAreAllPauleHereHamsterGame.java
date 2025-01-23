@@ -34,22 +34,21 @@ public class WeAreAllPauleHereHamsterGame extends SimpleHamsterGame {
 		};
 		List<Hamster> paules = List.of(new Hamster(game.getTerritory(), Location.from(5, 1), Direction.EAST, 0));
 
-		paule.move();
+		paule.move(); //grüner paule
 		for (Hamster paule : paules) {
-			paule.move();
+			paule.move(); //gelber paule
 		}
-		paule.move();
+		paule.move(); //grüner paule
 
-		final Hamster paule = paules.get(0);
-		paule.move();
+		final Hamster paule = paules.get(0); //paule == gelb
+		paule.move(); //gelber paule
+		this.paule.move(); //grüner paule
+		super.paule.move(); //blauer paule
 
-		this.paule.move();
-		super.paule.move();
+		doMovement(); //grün und grüner paule
+		doMovement(paule); //gelb und grüner paule
 
-		doMovement();
-		doMovement(paule);
-
-		consumer.accept(paule);
+		consumer.accept(paule); //gelb paule
 	}
 
 	/**
