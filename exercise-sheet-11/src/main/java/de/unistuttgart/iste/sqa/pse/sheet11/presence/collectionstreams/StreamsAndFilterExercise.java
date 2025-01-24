@@ -52,21 +52,32 @@ public final class StreamsAndFilterExercise {
 	}
 
 	private static void printAllStudentNames(final StudentRecord record) {
-		record.getAllStudents().stream().map(Student::getName).forEach(System.out::println);
+		record.getAllStudents().stream()
+				.map(Student::getName)
+				.forEach(System.out::println);
 	}
 
 	private static void printNumberOfStudentsOlderThan(final StudentRecord record, final int olderThan) {
-		long number = record.getAllStudents().stream().filter(student -> student.getAge() > olderThan).count();
+		long number = record.getAllStudents().stream()
+				.filter(student -> student.getAge() > olderThan)
+				.count();
 		System.out.println(number);
 	}
 
 	private static void printStudentNamesOlderThan(final StudentRecord record, final int olderThan) {
-		record.getAllStudents().stream().filter(student -> student.getAge() > olderThan).map(Student::getName).forEach(System.out::println);
+		record.getAllStudents().stream()
+				.filter(student -> student.getAge() > olderThan)
+				.map(Student::getName)
+				.forEach(System.out::println);
 	}
 
 	private static void printStudentNamesOlderThanAndFailedExam(
 			final StudentRecord record, final int olderThan, final String exam) {
-		record.getAllStudents().stream().filter(student -> (student.getAge() > olderThan)&&(student.getExam(exam).getMark() > 4.0)).map(Student::getName).forEach(System.out::println);
+		record.getAllStudents().stream()
+				.filter(student -> (student.getAge() > olderThan))
+				.filter(student -> student.getExam(exam).getMark() > 4.0)
+				.map(Student::getName)
+				.forEach(System.out::println);
 	}
 
 	private static void printAllStudentNamesChallenge(final StudentRecord record) {
