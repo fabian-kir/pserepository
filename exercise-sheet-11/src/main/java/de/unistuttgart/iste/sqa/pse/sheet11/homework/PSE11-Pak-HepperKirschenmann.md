@@ -127,24 +127,61 @@ Deshalb ist die übergebene Liste auch falsch und dadurch kann am Ende die Kalen
 
 ```mermaid
 classDiagram
-    Bar <|.. Foo
-    Foo <|-- Quaz
-
-    class Bix{
+    C <|.. A
+    F <|.. A 
     
+    
+    H <|.. E
+    
+    A <|-- D
+    E <|.. D
+    
+    C <|.. G
+    
+   
+    
+    C <|.. B
+    
+    
+    
+    
+    class A {
     }
-
-    class Foo ["Foo"] {
+    <<abstract>> A
     
-    }   
-    <<abstract>> Foo
-
-    class Quaz {
-    
+    class B {
     }
-
-    class Bar ["Bar"] {
+    <<abstract>> B
     
+    class C {
     }
-    <<interface>> Bar
+    <<interface>> C
+    
+    %% Instanzierbar
+    %% Kind von A, E, H
+    class D {
+    }
+    
+    class E {
+    }
+    <<interface>> E
+    
+    %% no implements
+    class F {
+    }
+    <<interface>> F
+    
+    %% Instanzierbar
+    class G {
+    }
+    
+    %% no implements
+    class H {
+    }
+    <<interface>> H
+    
+    %% D extends H implements A,E
+    %% D, E
+
+
 ```
