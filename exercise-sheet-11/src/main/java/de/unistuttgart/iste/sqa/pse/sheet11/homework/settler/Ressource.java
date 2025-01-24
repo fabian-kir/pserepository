@@ -20,7 +20,7 @@ abstract class Ressource {
     }
 
     /**
-     * returns the RessourceType of the Ressource
+     * get the RessourceType of the Ressource
      *
      * @requires Ressource is not null
      * @return the ressource type of the ressource
@@ -28,7 +28,7 @@ abstract class Ressource {
     public abstract ResourceType getRessourceType();
 
     /**
-     * returns the name of the ressource
+     * get the name of the ressource
      *
      * @requires the name of the ressource is not null
      * @return the name of the ressource
@@ -38,7 +38,7 @@ abstract class Ressource {
     }
 
     /**
-     * returns the position of the ressource
+     * get the position of the ressource
      *
      * @requires that the position is not null
      * @return the position of the ressource

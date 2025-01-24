@@ -15,7 +15,7 @@ public class Grain extends Ressource{
     }
 
     /**
-     * returns the ressource type grain
+     * get the ressource type grain
      *
      * @requires that the ressource type is not null
      * @return the ressource type grain

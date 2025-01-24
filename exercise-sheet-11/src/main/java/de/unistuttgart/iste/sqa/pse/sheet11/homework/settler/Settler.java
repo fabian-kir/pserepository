@@ -17,7 +17,7 @@ abstract class Settler {
     }
 
     /**
-     * returns the name of the settler
+     * get the name of the settler
      *
      * @requires that the name of the settler is not null
      * @return the name of the settler
@@ -27,7 +27,7 @@ abstract class Settler {
     }
 
     /**
-     * returns the position of the settler
+     * get the position of the settler
      *
      * @requires that the position of the settler is not null
      * @return the position of the settler
