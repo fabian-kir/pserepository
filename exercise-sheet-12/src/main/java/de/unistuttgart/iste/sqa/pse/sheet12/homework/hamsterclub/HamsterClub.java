@@ -1,5 +1,6 @@
 package de.unistuttgart.iste.sqa.pse.sheet12.homework.hamsterclub;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,31 +25,29 @@ public final class HamsterClub implements Club {
 
 	@Override
 	public List<ClubMember> getMembersWithUnpaidFees() {
-		// TODO: implement (a)
-		return null;
-	}
+		return members.stream().filter((member) -> !member.getHasPaidContributions()).toList();
+    }
 
 	@Override
 	public List<String> getNameOfMembers() {
-		// TODO: implement (b)
-		return null;
+		return members.stream().map(ClubMember::getName).sorted().toList();
 	}
 
 	@Override
 	public double getTotalContributions() {
-		// TODO: implement (c)
-		return 0.0;
+		return members.stream().mapToDouble(member -> member.getContributions()).sum();
 	}
 
 	@Override
 	public void applyDiscount() {
-		// TODO: implement (d)
+		members.stream().filter(member -> member.getAge() >= 60).forEach(member -> {
+			member.setContributions(member.getContributions()*.9);
+		});
 	}
 
 	@Override
 	public ClubMember getOldestMember() {
-		// TODO: implement (e)
-		return null;
+		return members.stream().sorted(Comparator.comparing(ClubMember::getAge)).reduce((first, second) -> second).get();
 	}
 
 	@Override
