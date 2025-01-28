@@ -2,6 +2,8 @@ package de.unistuttgart.iste.sqa.pse.sheet12.homework.hamsterclub;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 /**
  * A club of hamsters.
@@ -47,7 +49,17 @@ public final class HamsterClub implements Club {
 
 	@Override
 	public ClubMember getOldestMember() {
-		return members.stream().sorted(Comparator.comparing(ClubMember::getAge)).reduce((first, second) -> second).get();
+		if (members.isEmpty()) {
+			throw new NoSuchElementException("Der Club hat keine Member");
+		}
+		return members.stream().sorted(
+				(member1, member2) -> {
+					if (member1.getAge() == member2.getAge()) {
+						return member2.getName().compareTo(member1.getName());
+					}
+					return member2.getAge() - member1.getAge();
+				}
+		).reduce((member1, member2) -> member1).get();
 	}
 
 	@Override
