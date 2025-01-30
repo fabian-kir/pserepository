@@ -1,5 +1,7 @@
 package de.unistuttgart.iste.sqa.pse.sheet12.presence.blackboxtests;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Erroneous reimplementations of some operations from {@link java.lang.Math}.
  */
