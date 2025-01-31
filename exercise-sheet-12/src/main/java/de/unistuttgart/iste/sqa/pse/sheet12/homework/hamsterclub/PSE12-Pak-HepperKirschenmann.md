@@ -92,7 +92,7 @@ final Jumper jumper = new Jumper();
 
 final Zipper zipper2 = shorts1; //fehler da shorts kein subtyp von Zipper ist
 final Zipper zipper3 = jumper;  //zipper3 = jumper
-final Shorts shorts2 = pants;   //shorts2 = shorts
+final Shorts shorts2 = pants;   //fehler, da Pants nicht subtyp von Shorts (sondern umgekehrt)
 
 zipper1.close();
 clothing.wash();

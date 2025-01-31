@@ -60,6 +60,8 @@ public final class HamsterClub implements Club {
 					return member2.getAge() - member1.getAge();
 				}
 		).reduce((member1, member2) -> member1).get();
+
+		return members.stream().sorted(Comparator.comparing(ClubMember::getName).reversed()).max(Comparator.comparing(ClubMember::getAge)).get();
 	}
 
 	@Override
